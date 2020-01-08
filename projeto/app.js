@@ -4,10 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-
 var mongoose = require ('mongoose')
+mongoose.Promise = require('bluebird'); //Adicionei este modulo pq estava a dar warning de deprecated library
 
-mongoose.connect('mongodb://127.0.0.1:27017/compositores',{useNewUrlParser: true, useUnifiedTopology:true})
+mongoose.connect('mongodb://127.0.0.1:27017/projeto',{useNewUrlParser: true, useUnifiedTopology:true})
     .then(() => console.log('Mongo ready! ' + mongoose.connection.readyState))
     .catch((erro)=> console.log('Connection Error! ' + erro));
 
