@@ -47,7 +47,7 @@ router.post('/signup', function (req, res) {
 
 	axios.post('http://localhost:3000/api/users/', params)
 		.then(response => {
-			res.redirect('/login')
+			res.redirect('/index')
 		})
 		.catch(erro => {
 			console.log("POST /singup Erro no registo do utilizador! " + JSON.stringify(erro.response.data.info));

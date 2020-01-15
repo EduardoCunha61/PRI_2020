@@ -1,6 +1,6 @@
 var passport = require('passport')
 var localStrategy = require('passport-local').Strategy
-var UserModel = require('../models/user')
+var UserModel = require('../models/users')
 var BlackList = require('../controllers/blacklist')
 // Verificação do token
 var JWTstrategy = require('passport-jwt').Strategy
