@@ -3,6 +3,11 @@ var router = express.Router();
 var axios = require('axios')
 
 /* GET home page. */
+router.get('/', function (req, res) {	
+	res.render('index');	
+});
+
+
 router.get('/login', function (req, res) {	
 	res.render('login', { expressFlash: req.flash('error'), sessionFlash: res.locals.sessionFlash });	
 });
@@ -31,7 +36,7 @@ router.post('/login', function (req, res) {
 });
 
 router.get('/signup', function (req, res) {	
-	res.render('signup', { expressFlash: req.flash('error'), sessionFlash: res.locals.sessionFlash });
+	res.render('signup');
 });
 
 router.post('/signup', function (req, res) {

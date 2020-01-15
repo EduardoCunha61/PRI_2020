@@ -1,0 +1,72 @@
+extends layout
+block content
+  link(rel='stylesheet', href='/stylesheets/main-styles.css')    
+  //- link(rel='stylesheet',href='/maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css')
+        
+  .slider-login.display-table.center-text
+    h1.title.color-white.display-table-cell
+      b Sign Up
+  // slider  
+  // ===============================================================================================
+  link(rel='icon', type='image/png', href='images/icons/favicon.ico')
+  // ===============================================================================================
+  link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+  // ===============================================================================================
+  link(rel='stylesheet', href='/fonts/font-awesome-4.7.0/css/font-awesome.min.css')
+  // ===============================================================================================
+  link(rel='stylesheet', href='/stylesheets/animate.css')
+  // ===============================================================================================
+  link(rel='stylesheet', href='/stylesheets/hamburgers.min.css')
+  // ===============================================================================================
+  link(rel='stylesheet', href='/stylesheets/animsition.min.css')
+  // ===============================================================================================
+  link(rel='stylesheet', href='/stylesheets/select2.min.css')
+  // ===============================================================================================
+  link(rel='stylesheet', href='/stylesheets/daterangepicker.css')
+  // ===============================================================================================
+  link(rel='stylesheet', href='/stylesheets/util.css')
+  link(rel='stylesheet', href='/stylesheets/login.css')
+  // ===============================================================================================
+  body
+    .limiter
+      .container-login100
+        .wrap-login100
+          form.login100-form.validate-form.p-l-55.p-r-55.p-t-30(method="POST" action="/signup")
+            .wrap-input100.validate-input.m-b-16(data-validate='Please enter email')
+              input.input100(type='text', name='email', placeholder='Email')
+              span.focus-input100
+            .wrap-input100.validate-input.m-b-16(data-validate='Please enter your name')
+              input.input100(type='text', name='name', placeholder='Name')
+              span.focus-input100
+            .wrap-input100.validate-input.m-b-16(data-validate='Please enter password')
+              input.input100(type='password', name='password', placeholder='Password')
+              span.focus-input100
+            .wrap-input100.validate-input.m-b-16(data-validate='Please confirm the password')
+              input.input100(type='password', name='password2', placeholder='Confirm Password')
+              span.focus-input100
+            .text-right.p-t-13.p-b-23
+
+            .container-login100-form-btn
+              button.login100-form-btn.m-b-16(type="submit" value="signup")
+                | Sign Up
+            .flex-col-c.p-t-30.p-b-30
+              span.txt1.p-b-9
+                | Already have an account?
+              a.txt3(href='/login')
+                | Log in now
+    // ===============================================================================================
+    script(src='/javascripts/jquery-3.2.1.min.js')
+    // ===============================================================================================
+    script(src='/javascripts/animsition.min.js')
+    // ===============================================================================================
+    script(src='/javascripts/popper.js')
+    script(src='/javascripts/bootstrap.min.js')
+    // ===============================================================================================
+    script(src='/javascripts/select2.min.js')
+    // ===============================================================================================
+    script(src='/javascripts/moment.min.js')
+    script(src='/javascripts/daterangepicker.js')
+    // ===============================================================================================
+    script(src='/javascripts/countdowntime.js')
+    // ===============================================================================================
+    script(src='/javascripts/login.js')
