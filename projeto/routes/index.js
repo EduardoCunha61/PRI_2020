@@ -4,7 +4,14 @@ var axios = require('axios')
 
 /* GET home page. */
 router.get('/', function (req, res) {	
-	res.render('index');	
+	const authenticated = req.session.token || false;
+	const username = req.session.username || false;
+	if (req.session) {
+		res.render('index',{authenticated: authenticated, username: username});
+    } else {
+        res.render('signup')
+    }
+	
 });
 
 
@@ -60,7 +67,7 @@ router.get('/logout', function (req, res, next) {
 	axios.get('http://localhost:3000/api/users/logout', { headers: { "Authorization": 'Bearer ' + req.session.token } })
 		.then(() => {
 			delete req.session.email
-			res.redirect('/');	
+			res.redirect('/login');	
 		})
 		.catch(erro => {
 			console.log("POST /logout Erro no logout do utilizador! " + JSON.stringify(erro.response.data.info));

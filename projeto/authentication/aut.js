@@ -8,7 +8,6 @@ var ExtractJWT = require('passport-jwt').ExtractJwt
 const jwt = require('jsonwebtoken')
 
 
-
 // Registo de utilizadores
 passport.use('signup', new localStrategy({
     usernameField: 'email',
@@ -52,7 +51,7 @@ passport.use('login', new localStrategy({
 }))
 
 passport.use('jwt', new JWTstrategy({
-    secretOrKey: 'iBandaSecret2',
+    secretOrKey: 'secretpri',
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
 }, async (token, done) => {        
     if (token == null) {
