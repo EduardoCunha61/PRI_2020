@@ -2,6 +2,26 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.css')
   body
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+      button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation")
+        span.navbar-toggler-icon
+      #navbar-collapse.collapse.justify-content-between
+      ul.navbar-nav.mr-auto
+      ul.navbar-nav
+        .navbar-nav
+          a.nav-item.nav-link.active(href="/") Home 
+            span.sr-only (current)
+          if(authenticated)
+            a.nav-item.nav-link(href="/profile") My Profile
+            a.nav-item.nav-link(href="/logout") Logout
+          if(!authenticated)
+            a.nav-item.nav-link(href="/signup") Register
+          // a.nav-item.nav-link.disabled(href="#") Disabled
+
     block content

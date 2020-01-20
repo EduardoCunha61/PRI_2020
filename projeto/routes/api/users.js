@@ -8,7 +8,6 @@ var auth = require("../../authentication/aut")
 const {validationResult} = require('express-validator/check')
 
 
-
 // Get all users
 router.get('/', auth.checkBasicAuthentication, (req, res) => {
     console.log("/users")
@@ -66,7 +65,7 @@ router.post('/login', (req, res, next) => {
                 if( error ) return next(error)
                 var myuser = { id : user._id, email : user.email };
                 // Geração do token                
-                var token = jwt.sign({ user : myuser },'iBandaSecret2', { expiresIn: '30m' });        
+                var token = jwt.sign({ user : myuser },'secretpri', { expiresIn: '30m' });        
                 return res.jsonp({username: user.username, token: token})                
             });     
         } 

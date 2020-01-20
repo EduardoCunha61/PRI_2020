@@ -12,9 +12,6 @@ var FileStore = require('session-file-store')(session);
 
 require('./authentication/aut')
 
-
-
-
 var mongoose = require ('mongoose')
 mongoose.Promise = require('bluebird'); //Adicionei este modulo pq estava a dar warning de deprecated library
 
