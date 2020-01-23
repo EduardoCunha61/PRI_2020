@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var axios = require('axios')
+var users = require('../controllers/users')
 
 /* GET home page. */
 router.get('/', function (req, res) {	
@@ -14,14 +15,13 @@ router.get('/', function (req, res) {
 	
 });
 
-
 router.get('/login', function (req, res) {	
 	res.render('login', { expressFlash: req.flash('error'), sessionFlash: res.locals.sessionFlash });	
 });
 
 router.post('/login', function (req, res) {
 	var params = {
-		email: req.body.email, password: req.body.password,		
+		email: req.body.email, password: req.body.password	
 	}
 	axios.post('http://localhost:3000/api/users/login', params)
 		.then(response => {						

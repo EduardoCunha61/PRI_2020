@@ -31,6 +31,9 @@ var eventsAPIRouter = require('./routes/api/evento');
 
 var app = express();
 
+// const directory = path.join(__dirname, '/public');
+// app.use('/public', express.static(directory));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
