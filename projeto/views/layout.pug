@@ -8,6 +8,27 @@ html
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
 
+    // ===============================================================================================
+    link(rel='icon', type='image/png', href='images/icons/favicon.ico')
+    // ===============================================================================================
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    // ===============================================================================================
+    link(rel='stylesheet', href='/fonts/font-awesome-4.7.0/css/font-awesome.min.css')
+    // ===============================================================================================
+    link(rel='stylesheet', href='/stylesheets/animate.css')
+    // ===============================================================================================
+    link(rel='stylesheet', href='/stylesheets/hamburgers.min.css')
+    // ===============================================================================================
+    link(rel='stylesheet', href='/stylesheets/animsition.min.css')
+    // ===============================================================================================
+    link(rel='stylesheet', href='/stylesheets/select2.min.css')
+    // ===============================================================================================
+    link(rel='stylesheet', href='/stylesheets/daterangepicker.css')
+    // ===============================================================================================
+    link(rel='stylesheet', href='/stylesheets/util.css')
+    link(rel='stylesheet', href='/stylesheets/login.css')
+    // ===============================================================================================
+
     nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
       button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation")
         span.navbar-toggler-icon
@@ -18,10 +39,11 @@ html
           a.nav-item.nav-link.active(href="/") Home 
             span.sr-only (current)
           if(authenticated)
-            a.nav-item.nav-link(href="/profile") My Profile
+            a.nav-item.nav-link(href="/users/" + user.username) My Profile
             a.nav-item.nav-link(href="/logout") Logout
           if(!authenticated)
             a.nav-item.nav-link(href="/signup") Register
           // a.nav-item.nav-link.disabled(href="#") Disabled
+
 
     block content

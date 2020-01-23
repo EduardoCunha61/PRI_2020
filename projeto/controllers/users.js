@@ -38,6 +38,19 @@ module.exports.listByRole = role => {
 		.exec()
 }
 
+module.exports.editinfo = (current_username,name,username,email) => {
+	return User
+		.update({username: current_username}, {$set: {name: name, username: username, email: email}}, {returnOriginal: false})
+}
+
+module.exports.editinformation = user =>{
+	return User
+		.findOne({ username: username })
+		.update({
+
+		})
+}
+
 // module.exports.edit = users =>{
 //  return User.create(user)
 // }

@@ -20,7 +20,7 @@ passport.use('signup', new localStrategy({
         "password": req.body.password, 
         "name": req.body.name,
         "email": req.body.email,
-        "role": req.body.role,           
+        "role": req.body.role           
     };
     try{
         user = await UserModel.create(newUser)
@@ -39,7 +39,7 @@ passport.use('login', new localStrategy({
     try{
         user = await UserModel.findOne({email})
         if(!user) return done(null, false, {message: 'Utilizador não encontrado!'})
-
+        
         var valida = await user.isValidPassword(password)
         if(!valida) return done(null, false, {message: 'Password inválida!'})
 
@@ -79,7 +79,7 @@ module.exports.checkBasicAuthentication = (req, res, next) => {
             var blacklist_token = await BlackList.getToken(req.headers.authorization)
             if (blacklist_token) {
                 error.info = "O token pertence à blacklist"
-                return res.status(401).jsonp(error)// eturn res.redirect('/login');
+                return res.status(401).jsonp(error)
             }
 
             next()   
