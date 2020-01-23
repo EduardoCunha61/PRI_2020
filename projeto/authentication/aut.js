@@ -35,8 +35,9 @@ passport.use('signup', new localStrategy({
 passport.use('login', new localStrategy({
     usernameField: 'email',
     passwordField: 'password'
-}, async (email, password, done) => {
+} , async (email, password, done) => {
     try{
+        console.log(email+'   '+password)
         user = await UserModel.findOne({email})
         if(!user) return done(null, false, {message: 'Utilizador não encontrado!'})
 
@@ -73,7 +74,7 @@ module.exports.checkBasicAuthentication = (req, res, next) => {
             };
             if (!user) { 
                 error.info = "O utilizador não existe"
-                return res.status(401).jsonp(error) 
+                return res.status(401).jsonp(error)
             };
 
             var blacklist_token = await BlackList.getToken(req.headers.authorization)

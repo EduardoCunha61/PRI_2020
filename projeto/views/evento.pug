@@ -1,0 +1,31 @@
+extends layout
+block content
+    body
+        section.blog-area.section
+        .container
+            .row
+            .col-lg-1.col-md-0
+            .col-lg-10.col-md-12
+                .main-post
+                .post-top-area
+                    h5.pre-title 
+                    b= evento.titulo
+                    h3.title
+                    //- a(href=)
+                    a(href="/events/tipo/"+evento.tipo)=evento.tipo              
+                    .post-info
+                    .middle-area
+                        a.name(href='#')
+                        b= evento.local
+                        h6.date= evento.data
+                    // post-info
+                    p.para= evento.description
+                    form(method="POST" action="/events/participar/" + evento._id)
+                        input(type='submit' value="participar")             
+                // post-top-area           
+                    // post-info
+                // post-bottom-area
+                // main-post
+            // col-lg-8 col-md-12
+            // row
+        // container

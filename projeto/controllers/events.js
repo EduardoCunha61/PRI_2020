@@ -53,3 +53,10 @@ module.exports.consultar = eid => {
 module.exports.inserir = evento => {
     return Evento.create(evento)
 }
+
+module.exports.participar = (id,user) => {
+    return Evento
+        .update({_id: id},
+        { $addToSet: {users: user}})
+         
+}

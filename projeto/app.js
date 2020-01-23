@@ -65,7 +65,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/events', eventsRouter);
 app.use('/api/users', usersAPIRouter);
-app.use('/api/events', eventsAPIRouter);
+app.use('/api/evento', eventsAPIRouter);
 
 
 

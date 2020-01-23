@@ -9,7 +9,7 @@ var eventSchema = new mongoose.Schema({
     hfim: String,
     description: String,
     file:{type: Buffer, contentType: String}, //Ficheiros com tamanho inferior a 16MB
-    users: Array
+    users: []
 });
 
 module.exports = mongoose.model('events', eventSchema)

@@ -9,7 +9,7 @@ router.get('/', auth.checkBasicAuthentication, function(req, res) {
         .catch(erro => res.status(500).send('Erro na listagem: ' + erro))
 });
 
-router.get('/test/:id', auth.checkBasicAuthentication, function(req, res) {
+router.get('/:id', auth.checkBasicAuthentication, function(req, res) {
     Evento.consultar(req.params.id)
         .then(dados => res.jsonp(dados))
         .catch(erro => res.status(500).send('Erro na consulta: ' + erro))
@@ -40,6 +40,12 @@ router.post('/', auth.checkBasicAuthentication, function(req, res) {
         description: req.body.description}
     console.log("eventos: " + JSON.stringify(req.body))
     Evento.inserir(params)
+        .then(dados => res.jsonp(dados))
+        .catch(erro => res.status(500).send('Erro na listagem: ' + erro))
+});
+
+router.post('/participar', auth.checkBasicAuthentication, function(req, res) {
+    Evento.participar(req.body.id, req.body.username)
         .then(dados => res.jsonp(dados))
         .catch(erro => res.status(500).send('Erro na listagem: ' + erro))
 });
