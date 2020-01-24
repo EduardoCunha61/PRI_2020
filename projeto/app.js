@@ -21,8 +21,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/projeto',{useNewUrlParser: true, use
 
 
 var indexRouter = require('./routes/index');
+var eventsRouter = require('./routes/evento');
 var usersRouter = require('./routes/users');
 var usersAPIRouter = require('./routes/api/users');
+var eventsAPIRouter = require('./routes/api/evento');
 
 //var eventosRouter = require('./routes/eventos');
 
@@ -64,7 +66,11 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/events', eventsRouter);
 app.use('/api/users', usersAPIRouter);
+app.use('/api/evento', eventsAPIRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

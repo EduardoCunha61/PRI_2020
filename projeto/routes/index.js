@@ -29,6 +29,7 @@ router.post('/login', function (req, res) {
 			req.session.username = response.data.username;
 			req.session.save(err => {
 				if (err) console.log("POST /login Erro no login do utilizador! " + JSON.stringify(err.response.data.info));
+				console.log(req.session.redirectTo)
 				var redirectTo = req.session.redirectTo || '/';
 				delete req.session.redirectTo;			
 				res.redirect(redirectTo);
@@ -54,7 +55,7 @@ router.post('/signup', function (req, res) {
 
 	axios.post('http://localhost:3000/api/users/', params)
 		.then(response => {
-			res.redirect('/index')
+			res.redirect('/')
 		})
 		.catch(erro => {
 			console.log("POST /singup Erro no registo do utilizador! " + JSON.stringify(erro.response.data.info));

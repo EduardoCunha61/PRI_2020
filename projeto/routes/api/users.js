@@ -59,13 +59,13 @@ router.post('/', User.validate('createUser'), (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {        
         const error = new Error("Registo do utilizador: Parametros inválidos")
-        error.info = "" + errors.array().map(i => `${i.msg}`).join(' ');
+        error.infos = "" + errors.array().map(i => `${i.msg}`).join(' ');
         return res.status(500).send(error)
     }
     passport.authenticate('signup', { session : false}, (err, user, info) => {
         if (err | !user) {
             const error = new Error('Erro no registo do utilizador')
-            error.info = "" + err
+            error.infos = "" + err
             return res.status(500).send(error)
         }
         res.jsonp("Utilizador registado com sucesso")
@@ -85,6 +85,7 @@ router.post('/login', (req, res, next) => {
                 return next(error);
             }
             req.login(user, { session : false }, (error) => {
+                console.log('passou o autenticate')
                 if( error ) return next(error)
 
                 var myuser = { id : user._id, email : user.email};
