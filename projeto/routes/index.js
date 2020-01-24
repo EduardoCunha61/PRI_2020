@@ -64,8 +64,9 @@ router.post('/signup', function (req, res) {
 });
 
 router.get('/logout', function (req, res, next) {
-	axios.get('http://localhost:3000/api/users/logout', { headers: { "Authorization": 'Bearer ' + req.session.token } })
-		.then(() => {
+	var params
+	axios.post('http://localhost:3000/api/users/logout', params, { headers: { "Authorization": 'Bearer ' + req.session.token } })
+		.then(tag => {
 			delete req.session.email
 			res.redirect('/login');	
 		})

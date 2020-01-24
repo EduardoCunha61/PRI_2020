@@ -10,7 +10,6 @@ var fs = require('fs')
 
 // Get all users
 router.get('/', auth.checkBasicAuthentication, (req, res) => {
-    console.log("/users")
     User.list()
         .then(data => res.jsonp(data))
         .catch(errors => res.status(500).send('Erro na listagem: ' + errors))
@@ -104,11 +103,11 @@ router.post('/login', (req, res, next) => {
 });
 
 // LogOut
-router.get('/logout', async (req, res, next) => {    
+router.post('/logout',async(req, res, next) => {    
     auth.isLoggedIn(req, res, (loggedin)=> {
         if (loggedin) {
             BlackList.addToken({token: req.headers.authorization});
-            req.logout();  
+            req.logout();
         }
     }) 
     res.jsonp("Logout efetuado com sucesso!")
