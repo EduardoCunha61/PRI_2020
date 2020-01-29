@@ -43,10 +43,10 @@ module.exports.editinfo = (current_username,name,username,email) => {
 		.update({username: current_username}, {$set: {name: name, username: username, email: email}}, {returnOriginal: false})
 }
 
-module.exports.editinformation = user =>{
+module.exports.editinformation = (user,filepath) =>{
 	return User
-		.findOne({ username: username })
-		.update({
+		.findOne({ username: user })
+		.update({img:filepath
 
 		})
 }

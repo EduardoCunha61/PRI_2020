@@ -1,6 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var axios = require('axios');
+var multer = require('multer')
+var fs = require("fs");
+
+
+var upload = multer({dest:'./public/tmp'})
 
 /* GET users listing. */
 router.get('/', (req, res) => {
@@ -68,19 +73,32 @@ router.post('/:username/editinfo', (req, res) => {
 });
 
 //Ver isto
-router.post('/:username/uploadimage', (req, res) => {	
-	console.log(req.params.username)
-	axios.post('http://localhost:3000/api/users/' + req.params.username + '/uploadimage', { headers: { "Authorization": 'Bearer ' + req.session.token } })
-		.then(user => {
-			const authenticated = req.session.token || false;
-			res.render('profile', {authenticated: authenticated, user: user.data})
-		})
-		.catch(erro => {
-			if (erro.response.status) {console.log(erro.response.data) 
-				return res.redirect('/login')}
-			console.log('Erro na listagem dos utilizadores: ' + erro)
-			res.render('error', { error: erro, message: "Erro na listagem dos utilizadores!" })
-		})
+router.post('/:username/uploadimage',upload.single('file'), (req, res) => {
+	console.log(req.file.filename)
+	var file = 'public/tmp/' + req.file.filename +'.png'
+	var filepath = 'tmp/' + req.file.filename +'.png'
+	var params = {file:filepath, username:req.session.username}
+	console.log(file)
+
+	fs.rename(req.file.path, file, function(err) {
+		if (err) {
+		  console.log(err);
+		  res.send(500);
+		} else {
+			console.log(params)
+			axios.post('http://localhost:3000/api/users/' + req.params.username + '/uploadimage',params, { headers: { "Authorization": 'Bearer ' + req.session.token } })
+				.then(user => {
+					const authenticated = req.session.token || false;
+					res.redirect('/users/'+req.params.username)
+				})
+				.catch(erro => {
+					if (erro.response.status) {console.log(erro.response.data) 
+						return res.redirect('/login')}
+					console.log('Erro na listagem dos utilizadores: ' + erro)
+					res.render('error', { error: erro, message: "Erro na listagem dos utilizadores!" })
+				})
+				}
+	  })
 });
 
 module.exports = router;

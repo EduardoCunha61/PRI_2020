@@ -9,6 +9,8 @@ var flash = require('express-flash')
 var uuid = require('uuid/v4')
 var session = require('express-session')
 var FileStore = require('session-file-store')(session);
+var multer = require('multer')
+
 
 require('./authentication/aut')
 

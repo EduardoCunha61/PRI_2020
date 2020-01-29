@@ -7,6 +7,9 @@ var JWTstrategy = require('passport-jwt').Strategy
 var ExtractJWT = require('passport-jwt').ExtractJwt
 const jwt = require('jsonwebtoken')
 
+var FacebookTokenStrategy = require('passport-facebook-token');
+
+
 
 // Registo de utilizadores
 passport.use('signup', new localStrategy({
@@ -20,6 +23,7 @@ passport.use('signup', new localStrategy({
         "password": req.body.password, 
         "name": req.body.name,
         "email": req.body.email,
+        "img":"",
         "role": req.body.role           
     };
     try{
@@ -63,6 +67,37 @@ passport.use('jwt', new JWTstrategy({
     if(!user) return done(null, false, {message: 'Utilizador não encontrado!'})
     return done(null, user)
 }))
+
+passport.use('facebook',new FacebookTokenStrategy({
+    clientID: '<TODO>',
+    clientSecret: '<TODO>'
+  }, async function (accessToken, refreshToken, profile, done) {
+    let user = {
+      'email': profile.emails[0].value,
+      'name': profile.name.givenName + ' ' + profile.name.familyName,
+      'id': profile.id,
+      'token': accessToken
+    };
+
+    try{
+        console.log(email+'   ')
+        var email = user.email
+        user = await UserModel.findOne({email})
+        if(!user) return done(null, false, {message: 'Utilizador não encontrado!'})
+
+    }
+  
+    // You can perform any necessary actions with your user at this point,
+    // e.g. internal verification against a users table,
+    // creating new user entries, etc.
+    
+    catch(erro){
+        return done(erro)
+    }
+    return done(null, user); // the user object we just made gets passed to the route's controller as `req.user`
+  
+  }));
+  
 
 module.exports.checkBasicAuthentication = (req, res, next) => {
     passport.authenticate('jwt', { session : false}, 

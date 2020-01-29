@@ -64,8 +64,26 @@ router.post('/signup', function (req, res) {
 		})
 });
 
+router.post('/facebooksignup', function (req, res) {
+	var params = {
+		username: req.body.username, password: req.body.password,
+		name: req.body.name, email: req.body.email, role: 'user'
+	}
+
+	axios.post('http://localhost:3000/api/users/', params)
+		.then(response => {
+			res.redirect('/')
+		})
+		.catch(erro => {
+			console.log("POST /singup Erro no registo do utilizador! " + JSON.stringify(erro.response.data.info));
+			req.flash('error', erro.response.data.info)
+			res.redirect(301, '/signup');
+		})
+});
+
 router.get('/logout', function (req, res, next) {
-	axios.get('http://localhost:3000/api/users/logout', { headers: { "Authorization": 'Bearer ' + req.session.token } })
+	var params
+	axios.post('http://localhost:3000/api/users/logout',params ,{ headers: { "Authorization": 'Bearer ' + req.session.token } })
 		.then(() => {
 			delete req.session.email
 			res.redirect('/login');	

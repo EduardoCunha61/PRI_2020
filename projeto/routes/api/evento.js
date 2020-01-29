@@ -27,6 +27,10 @@ router.get('/data/:d', auth.checkBasicAuthentication, function(req, res) {
         .catch(erro => res.status(500).send('Erro na listagem: ' + erro))
 });
 
+router.get('/criarEvento', auth.checkBasicAuthentication, function(req, res) {
+   
+});
+
 router.get('/dataEx/:d', auth.checkBasicAuthentication, function(req, res) {
     Evento.listarDataExact(req.params.d)
         .then(dados => res.jsonp(dados))
@@ -37,7 +41,7 @@ router.post('/', auth.checkBasicAuthentication, function(req, res) {
     var params = {
 		data: req.body.data, hinicio: req.body.hinicio, hfim: req.body.hfim,
         tipo: req.body.tipo, titulo: req.body.titulo, local: req.body.local,
-        description: req.body.description}
+        description: req.body.description,file:req.body.file}
     console.log("eventos: " + JSON.stringify(req.body))
     Evento.inserir(params)
         .then(dados => res.jsonp(dados))

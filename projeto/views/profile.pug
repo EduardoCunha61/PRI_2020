@@ -5,7 +5,7 @@ block content
       .row
         .col-md-4.col-xs-4.text-left
           if(user.img)
-            img.img-fluid.img-thumbnail.rounded-circle.float-left(src="https://upload.wikimedia.org/wikipedia/commons/d/de/Windows_live_square.JPG" alt="Sheep" width="200" height="200")
+            img.img-fluid.img-thumbnail.rounded-circle.float-left(src='/'+user.img alt="Sheep" width="200" height="200")
           if(!user.img)
             img.img-fluid.img-thumbnail.rounded-circle.float-left(src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Square_Cash_app_logo.svg/1200px-Square_Cash_app_logo.svg.png" alt="Sheep" width="200" height="200")
 
@@ -17,8 +17,8 @@ block content
         .row
           .col-md-4.col-xs-4.text-left
           
-            form(method="POST" action="/users/"+user.username + "/uploadimage")
-              input#myFile(type="file" accept=".png,.jpg" name="filename")
+            form(method="POST" action="/users/"+user.username + "/uploadimage" enctype='multipart/form-data')
+              input#myFile(type="file" accept=".png,.jpg" name="file")
               input(type="Submit")
           .col-md-6.col-xs-6
             a.txt3(href='/users/' + user.username + "/editinfo") Change information

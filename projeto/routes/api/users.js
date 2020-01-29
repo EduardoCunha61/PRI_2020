@@ -40,7 +40,7 @@ router.post('/:username/editinfo', auth.checkBasicAuthentication, (req,res) =>{
 //Ver isto
 router.post('/:username/uploadimage', auth.checkBasicAuthentication, (req, res) => {
     console.log(req.params.username)
-    User.getUserByUsername(req.params.username)
+    User.editinformation(req.params.username,req.body.file)
         .then(data => res.jsonp(data))
         .catch(errors => res.status(500).send('Erro na listagem: ' + errors))
     // var imgPath = ""
@@ -105,13 +105,14 @@ router.post('/login', (req, res, next) => {
 });
 
 // LogOut
-router.get('/logout', async (req, res, next) => {    
-    auth.isLoggedIn(req, res, (loggedin)=> {
+router.post('/logout',async(req, res, next) => {
+    auth.isLoggedIn(req,res,(loggedin)=> {
         if (loggedin) {
+            console.log("Aqui")
             BlackList.addToken({token: req.headers.authorization});
             req.logout();  
         }
-    }) 
+    } )
     res.jsonp("Logout efetuado com sucesso!")
 });
 

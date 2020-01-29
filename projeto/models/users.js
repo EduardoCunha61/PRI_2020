@@ -10,7 +10,14 @@ var UserSchema = new mongoose.Schema({
     password: {type: String, required: true},
 	role: { type: String, required: true },
 	img: {data: Buffer, contentType: String },
-    ultimoacesso: String
+	ultimoacesso: String,
+	facebook: {
+		id: { type: String },
+		displayName: { type: String },
+		photoUrl: { type: String },
+		email: { type: String },
+		accessToken: { type: String }
+	  }
 });
 
 

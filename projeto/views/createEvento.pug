@@ -16,7 +16,7 @@ block content
             center.h3.title 
               b Criar Evento
             .post-top-area
-              form(method="POST" action="/events")
+              form(method="POST" action="/events" enctype='multipart/form-data')
                 .form-row
                   .name Titulo*
                   .value
@@ -46,7 +46,8 @@ block content
                   .value
                     .input-group
                       textarea.textarea--style-6(name='description', placeholder='Breve descrição do evento...')
-                center.col-sm-12
+                .center.col-sm-12
+                  input#myFile(type="file" accept=".png,.jpg,.zip" name="file")
                   button#form-submit.submit-btn(type='submit')
                     b CRIAR EVENTO
               br 
