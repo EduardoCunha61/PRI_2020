@@ -32,16 +32,6 @@ module.exports.consultar = eid => {
         .exec()
 }
 
-// Insere um Pub na agenda
-/* module.exports.inserir = Pub => {
-    var novo = new Pub(Pub)
-    return new Promise(function (fulfill, reject){
-        novo.save(erro => {
-            if(erro) reject({erro: "Erro no envio à BD."})
-            else fulfill({ok: "Registo inserido na BD."})
-    })
-})} */
-
-module.exports.inserir = Pub => {
-    return Pub.create(Pub)
+module.exports.inserir = pub => {
+    return Pub.create(pub)
 }

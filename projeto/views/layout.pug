@@ -40,10 +40,17 @@ html
             span.sr-only (current)
           if(authenticated)
             a.nav-item.nav-link(href="/users/" + user.username) My Profile
-            a.nav-item.nav-link(href="/logout") Logout
+            form(id="log" action="/logout" method="POST")
+              a.nav-item.nav-link(onclick="document.getElementById('log').submit()") Logout
+              
           if(!authenticated)
             a.nav-item.nav-link(href="/signup") Register
           // a.nav-item.nav-link.disabled(href="#") Disabled
 
 
     block content
+
+  script.
+    function myfunction() {
+        document.getElementById("log").submit();
+    }

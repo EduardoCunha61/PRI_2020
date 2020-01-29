@@ -4,7 +4,6 @@ var axios = require('axios');
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-	console.log("req.body = ", JSON.stringify(req.headers))
 	req.session.redirectTo = "/users";
 	axios.get('http://localhost:3000/api/users', { headers: { "Authorization": 'Bearer ' + req.session.token } })
 		.then(users => {
@@ -24,7 +23,14 @@ router.get('/:username', (req, res) => {
 	axios.get('http://localhost:3000/api/users/' + req.params.username, { headers: { "Authorization": 'Bearer ' + req.session.token } })
 		.then(user => {
 			const authenticated = req.session.token;
-			res.render('profile', {authenticated: authenticated, user: user.data})
+			var mp = false
+			if(user.data.username == req.session.username){
+				var mp = true
+				console.log(mp)
+			}
+			console.log(mp)
+			res.render('profile', {authenticated: authenticated, user: user.data, myprofile: mp})
+			
 		})
 		.catch(erro => {
 			if (erro.response.status) return res.redirect('/login')

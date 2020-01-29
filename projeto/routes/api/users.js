@@ -5,7 +5,7 @@ var router = express.Router()
 var User = require('../../controllers/users')
 var BlackList = require('../../controllers/blacklist')
 var auth = require("../../authentication/aut")
-const {validationResult} = require('express-validator/check')
+const {validationResult} = require('express-validator')
 var fs = require('fs')
 
 // Get all users
@@ -104,14 +104,16 @@ router.post('/login', (req, res, next) => {
 });
 
 // LogOut
-router.post('/logout',async(req, res, next) => {    
+router.post('/logout',async(req, res, next) => {
     auth.isLoggedIn(req, res, (loggedin)=> {
-        if (loggedin) {
-            BlackList.addToken({token: req.headers.authorization});
-            req.logout();
-        }
-    }) 
-    res.jsonp("Logout efetuado com sucesso!")
+        User.updatelastsession(req.body.username,req.body.tstamp)
+            .then(data =>{
+                BlackList.addToken({token: req.headers.authorization});
+                req.logout();
+            })
+            .catch(errors => res.status(500).send('Erro na listagem: ' + errors))
+        res.jsonp("Logout efetuado com sucesso!")
+    })
 });
 
 module.exports = router;

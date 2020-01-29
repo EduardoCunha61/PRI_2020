@@ -1,7 +1,7 @@
 extends layout
 block content
 
-    .container
+    .container.sm
       .row
         .col-md-4.col-xs-4.text-left
           if(user.img)
@@ -10,16 +10,34 @@ block content
             img.img-fluid.img-thumbnail.rounded-circle.float-left(src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Square_Cash_app_logo.svg/1200px-Square_Cash_app_logo.svg.png" alt="Sheep" width="200" height="200")
 
         .col-md-6.col-xs-6
-          p= user.username
-          p= user.email
-          p= user.role
-      if(authenticated)
+          p Username: 
+            =user.username
+          p Name: 
+            = user.name
+          p Email: 
+            a(href="mailto:"+user.email)= user.email
+
+      if(authenticated && myprofile)
         .row
           .col-md-4.col-xs-4.text-left
-          
             form(method="POST" action="/users/"+user.username + "/uploadimage")
               input#myFile(type="file" accept=".png,.jpg" name="filename")
               input(type="Submit")
           .col-md-6.col-xs-6
-            a.txt3(href='/users/' + user.username + "/editinfo") Change information
-
+            a.txt3(href='/users/' + user.username + "/editinfo") Change information 
+          .col-md-6.col-xs-6
+            a.txt3(href='/evaluations') Evaluations
+      
+      if(authenticated && myprofile)
+        .container.sm
+          form(method="POST" action="/pubs")
+            .form-group
+              center.col-sm-12
+                label Insira a sua publicação
+                textarea.form-control(name='description', rows="5",style="width: 50%")
+              center.col-sm-12
+                button#form-submit.submit-btn(type='submit')
+                  b Post
+      
+    .container.sm
+      

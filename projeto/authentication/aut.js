@@ -65,7 +65,6 @@ passport.use('jwt', new JWTstrategy({
 }))
 
 module.exports.checkBasicAuthentication = (req, res, next) => {
-    console.log("token: " + JSON.stringify(req.headers.authorization))
     passport.authenticate('jwt', { session : false}, 
         async function(err, user, info) {
             const error = new Error("Registo do utilizador: Parametros inválidos")
@@ -89,7 +88,6 @@ module.exports.checkBasicAuthentication = (req, res, next) => {
 }
  
 module.exports.checkAdminAuthentication = (req, res, next) => {
-    console.log("token: " + JSON.stringify(req.headers.authorization))
     passport.authenticate('jwt', { session : false}, 
         async function(err, user, info) {
             const error = new Error("Registo do utilizador: Parametros inválidos")
@@ -108,7 +106,6 @@ module.exports.checkAdminAuthentication = (req, res, next) => {
             }
 
             var blacklist_token = await BlackList.getToken(req.headers.authorization)
-            console.log(blacklist_token)
             if (blacklist_token) {
                 error.info = "O token pertence à blacklist"
                 return res.status(401).jsonp(error)// eturn res.redirect('/login');
@@ -122,7 +119,6 @@ module.exports.checkAdminAuthentication = (req, res, next) => {
 module.exports.isLoggedIn = (req, res, next) => {
     passport.authenticate('jwt', { session : false}, 
         function(err, user) {
-            console.log("isLoggedIn: " + user)
             if (err) { res.status(401).json(err); };
             if (!user) { return next(false) };
             return next(true)

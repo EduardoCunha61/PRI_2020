@@ -20,20 +20,19 @@ block content
                     table.table.table-striped#users
                         thead
                             tr
-                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(0)' width="20%") Email
-                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(1)' width="20%") Username
-                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(2)' width="20%") Last online
-                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(3)' width="15%") Role
+                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(0)' width="20%") Username
+                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(1)' width="20%") Email
+                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(2)' width="15%") Last online
 
                         each user in users
                             tbody
                                 tr
                                     td(style='text-align: center;')
+                                        a(href="/users/"+user.username)= user.username 
+                                    td(style='text-align: center;')
                                         a(href="mailto:"+user.email)= user.email
                                     td(style='text-align: center;')
-                                        a.user-link(href="/users/"+user.username)= user.name 
-                                    td(style='text-align: center;')= user.ultimoacesso
-                                    td(style='text-align: center;')= user.role
+                                        a()= user.ultimoacesso
 
     script.
         function sortTable(n) {

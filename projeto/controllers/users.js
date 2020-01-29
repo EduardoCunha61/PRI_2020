@@ -1,5 +1,5 @@
 var User = require("../models/users");
-const { body } = require('express-validator/check')
+const { body } = require('express-validator')
 
 
 module.exports.register = user => {
@@ -36,6 +36,12 @@ module.exports.listByRole = role => {
 		.find({ role: role })
 		//.sort({})
 		.exec()
+}
+
+
+module.exports.updatelastsession = (current_username,tstmp) => {
+	return User
+		.update({username: current_username}, {$set: {ultimoacesso: tstmp}}, {returnOriginal: false})
 }
 
 module.exports.editinfo = (current_username,name,username,email) => {

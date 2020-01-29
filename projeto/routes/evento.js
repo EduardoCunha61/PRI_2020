@@ -3,11 +3,7 @@ var router = express.Router();
 var axios = require('axios')
 var auth = require("../authentication/aut")
 
-
-
-
 router.get('/', function(req, res) {
-    console.log("eventos")
     req.session.redirectTo = "/events";	
     axios.get('http://localhost:3000/api/evento', { headers: { "Authorization": 'Bearer ' + req.session.token } })
         .then(eventos => res.render('events', {eventos: eventos.data,authenticated:req.session.token}))
@@ -20,7 +16,6 @@ router.get('/', function(req, res) {
 
 router.get('/criarEvento',function(req, res) {
     const authenticated = req.session.token
-    console.log(authenticated)
     res.render('createEvento',{authenticated: authenticated});
 });
 
@@ -60,9 +55,8 @@ router.post('/participar/:id', function(req, res){
 router.post('/', function(req, res) {
     var params = {
 		data: req.body.data, hinicio: req.body.hinicio, hfim: req.body.hfim,
-        tipo: req.body.tipo, titulo: req.body.titulo, local: req.body.local,
+        tipo: req.body.tipo, titulo: req.body.titulo, local: req.body.local, data_publicated: new Date().toISOString().split('.')[0],
         description: req.body.description}
-        console.log(params)
     axios.post('http://localhost:3000/api/evento', params, { headers: { "Authorization": 'Bearer ' + req.session.token } })
         .then(()=> res.redirect('http://localhost:3000/events'))
         .catch(erro => {

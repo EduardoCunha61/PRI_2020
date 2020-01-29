@@ -38,7 +38,6 @@ router.post('/', auth.checkBasicAuthentication, function(req, res) {
 		data: req.body.data, hinicio: req.body.hinicio, hfim: req.body.hfim,
         tipo: req.body.tipo, titulo: req.body.titulo, local: req.body.local,
         description: req.body.description}
-    console.log("eventos: " + JSON.stringify(req.body))
     Evento.inserir(params)
         .then(dados => res.jsonp(dados))
         .catch(erro => res.status(500).send('Erro na listagem: ' + erro))
