@@ -25,16 +25,14 @@ mongoose.connect('mongodb://127.0.0.1:27017/projeto',{useNewUrlParser: true, use
 var indexRouter = require('./routes/index');
 var eventsRouter = require('./routes/evento');
 var usersRouter = require('./routes/users');
+var evaluationsRouter = require('./routes/evaluations');
+var pubsRouter = require('./routes/pubs')
 var usersAPIRouter = require('./routes/api/users');
 var eventsAPIRouter = require('./routes/api/evento');
-
-//var eventosRouter = require('./routes/eventos');
-
+var evaluationsAPIRouter = require('./routes/api/evaluations');
+var pubsAPIRouter = require('./routes/api/pubs');
 
 var app = express();
-
-// const directory = path.join(__dirname, '/public');
-// app.use('/public', express.static(directory));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -69,10 +67,12 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/events', eventsRouter);
+app.use('/evaluations', evaluationsRouter);
+app.use('/pubs', pubsRouter);
 app.use('/api/users', usersAPIRouter);
 app.use('/api/evento', eventsAPIRouter);
-
-
+app.use('/api/evaluations', evaluationsAPIRouter);
+app.use('/api/pubs', pubsAPIRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

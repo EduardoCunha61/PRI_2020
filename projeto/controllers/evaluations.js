@@ -1,33 +1,31 @@
-var Evento = require('../models/events')
-
-// Lista de eventos
+var Evaluation = require('../models/evaluations')
 
 module.exports.listar = () => {
-    return Evento
+    return Evaluation
         .find()
         .sort({data: -1})
         .exec()
 }
 
-// Lista os eventos do tipo T
+// Lista as avaliacoes do tipo T
 module.exports.listarTipo = tipo => {
-    return Evento
+    return Evaluation
         .find({tipo: tipo})
         .sort({data: -1})
         .exec()
 }
 
-// Lista os eventos depois da data D
+// Lista as avaliacoes depois da data D
 module.exports.listarData = data => {
-    return Evento
+    return Evaluation
         .find({data: {$gte: data}})
         .sort({data: -1})
         .exec()
 }
 
-// Lista os eventos na data D
+// Lista as avaliacoes na data D
 module.exports.listarDataExact = data => {
-    return Evento
+    return Evaluation
         .find({data: data})
         .sort({data: -1})
         .exec()
@@ -35,17 +33,17 @@ module.exports.listarDataExact = data => {
 
 // Devolve a informacao do evento com id
 module.exports.consultar = eid => {
-    return Evento
+    return Evaluation
         .findOne({_id: eid})
         .exec()
 }
 
-module.exports.inserir = evento => {
-    return Evento.create(evento)
+module.exports.inserir = evaluation => {
+    return Evaluation.create(evaluation)
 }
 
 module.exports.participar = (id,user) => {
-    return Evento
+    return Evaluation
         .update({_id: id},
         { $addToSet: {users: user}})
          

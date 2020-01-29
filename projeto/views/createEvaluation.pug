@@ -1,0 +1,42 @@
+extends layout
+block content
+  link(href='/stylesheets/sp2-styles.css', rel='stylesheet')
+  link(href='/stylesheets/news-main.css', rel='stylesheet', media='all')
+  link(href='/stylesheets/sp2-responsive.css', rel='stylesheet')
+  .slider.display-table.center-text
+    //- h1.title.color-white.display-table-cell-2
+    //-   b Criar notícia
+  // slider
+  section.blog-area.section
+    .container
+      .row
+        .col-lg-1.col-md-0
+        .col-lg-10.col-md-12
+          .main-post
+            center.h3.title 
+              b Criar Avaliação
+            .post-top-area
+              form(method="POST" action="/evaluations/newevaluation")
+                .form-row
+                  .name Tipo*
+                  .value
+                    input.input--style-6(type='text', name='tipo', required='')
+                .form-row
+                  .name UC*
+                  .value
+                    input.input--style-6(type='text', name='uc', required='')
+                .form-row
+                  .name Data*
+                  .value
+                    input.input--style-6(type='text', name='data', required='')                          
+                .form-row                
+                  .name Local*
+                  .value
+                    input.input--style-6(type='text', name='local', required='')
+                center.col-sm-12
+                  button#form-submit.submit-btn(type='submit')
+                    b CRIAR AVALIAÇÃO
+              br 
+              hr
+              br
+            center.h4.title

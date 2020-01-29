@@ -8,11 +8,7 @@ var fs = require("fs");
 
 var upload = multer({dest:'./public/tmp'})
 
-
-
-
 router.get('/', function(req, res) {
-    console.log("eventos")
     req.session.redirectTo = "/events";	
     axios.get('http://localhost:3000/api/evento', { headers: { "Authorization": 'Bearer ' + req.session.token } })
         .then(eventos => res.render('events', {eventos: eventos.data,authenticated:req.session.token}))
@@ -24,7 +20,8 @@ router.get('/', function(req, res) {
 });
 
 router.get('/criarEvento',function(req, res) {
-     res.render('createEvento', {authenticated:req.session.token})
+    const authenticated = req.session.token
+    res.render('createEvento',{authenticated: authenticated});
 });
 
 

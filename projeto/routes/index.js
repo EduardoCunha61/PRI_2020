@@ -81,10 +81,13 @@ router.post('/facebooksignup', function (req, res) {
 		})
 });
 
-router.get('/logout', function (req, res, next) {
-	var params
-	axios.post('http://localhost:3000/api/users/logout',params ,{ headers: { "Authorization": 'Bearer ' + req.session.token } })
-		.then(() => {
+router.post('/logout', function (req, res, next) {
+	var parse_date = new Date().toISOString().split('.')[0].replace('T',',')
+	var params = {
+		username: req.session.username, tstamp: parse_date
+	}
+	axios.post('http://localhost:3000/api/users/logout', params, { headers: { "Authorization": 'Bearer ' + req.session.token } })
+		.then(tag => {
 			delete req.session.email
 			res.redirect('/login');	
 		})

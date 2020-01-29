@@ -13,26 +13,26 @@ block content
 
     section.blog-area.section
         .container.bootstrap.snippet
-            center.h2.w3-teal Utilizadores registados
+            center.h2.w3-teal Avaliações registadas
+            a.user-link(href="/evaluations/newevaluation") Criar Avaliação
             br
             .row
                 .col-lg-12
-                    table.table.table-striped#users
+                    table.table.table-striped#evaluations
                         thead
                             tr
-                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(0)' width="20%") Username
-                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(1)' width="20%") Email
-                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(2)' width="15%") Last online
+                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(0)' width="20%") Tipo
+                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(1)' width="20%") UC
+                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(2)' width="20%") Data
+                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(3)' width="15%") Local
 
-                        each user in users
+                        each evaluation in evaluations
                             tbody
                                 tr
-                                    td(style='text-align: center;')
-                                        a(href="/users/"+user.username)= user.username 
-                                    td(style='text-align: center;')
-                                        a(href="mailto:"+user.email)= user.email
-                                    td(style='text-align: center;')
-                                        a()= user.ultimoacesso
+                                    td(style='text-align: center;')= evaluation.tipo
+                                    td(style='text-align: center;')= evaluation.uc
+                                    td(style='text-align: center;')= evaluation.data
+                                    td(style='text-align: center;')= evaluation.local
 
     script.
         function sortTable(n) {
