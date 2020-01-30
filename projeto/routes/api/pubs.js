@@ -20,6 +20,7 @@ router.post('/', auth.checkBasicAuthentication, function(req, res) {
     var params = {
         data: req.body.data,
         description: req.body.description,
+        file:req.body.file,
         user: req.body.username}
     
     Pub.inserir(params)

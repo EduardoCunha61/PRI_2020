@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pr SYSTEM "pr.dtd">
+<pr>
+    <meta>
+        <keyname>PRI2019::A74264::TestePRI-2020</keyname>
+        <title>Teste de PRI de 2020</title>
+        <subtitle>Elaboração do Teste da Unidade Curricular de Processamento e Representação de Informação do ano lectivo de 2019/2020</subtitle>
+        <bdate>13/01/2020</bdate>
+        <edate>13/01/2020</edate>
+        <supervisor>
+            <name>José Carlos Ramalho</name>
+            <email>jcr@di.uminho.pt</email>
+            <homepage>http://www4.di.uminho.pt/~jcr/</homepage>
+        </supervisor>
+    </meta>
+    <workteam>
+        <member>
+            <identifier>a72187</identifier>
+            <name>José Carlos Araújo Lima</name>
+            <email>a72187@alunos.uminho.pt</email>
+            <photo path="images/rafa_photo.png"/>
+        </member>
+    </workteam>
+    <abstract>
+        <p>
+            <b>Exercício Nº 1: Arquivo de Música Digital</b>
+        </p>
+        <p>
+            Neste exercicio é nos fornecido um ficheiro xml em converti para json estando na pasta data chamado de arqmus.json
+        </p>
+        <p>
+            - Utilizei para este exercicio para guardar o dataset o mongo, utilizando o seguinte comando: <i>  mongoimport --db arqmusical --collection arqmus --file arqmus.json  --jsonArray </i>
+            Tendo obtido no final o total de <u>74</u> registos guardados.
+        </p>
+        <p>
+            <b>Exercício Nº 2: CLAV: Classificação e Avaliação da Informação Pública</b>
+        </p>
+        <p>
+            Em principio responde a tudo pedido pelo professor
+        </p>
+        <p>
+             As resposta estão dentro da pasta do ex2 sendo o ficheiro respostasex2.txt 
+        </p>
+    </abstract>
+    <deliverables>
+        <deliverable path="pr.xml">XML do Project Record</deliverable>
+        <deliverable path="/ex1/">Servidor do Exercicio Nº1</deliverable>
+        <deliverable path="/ex2/">Servidor do Exercicio Nº2</deliverable>
+        <deliverable path="/ex2/respostasex2.txt">Respostas para a alinea 1 do Exercicio Nº2</deliverable>
+    </deliverables>
+</pr>
