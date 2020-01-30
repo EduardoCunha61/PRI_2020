@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifesto>
+    <meta>
+        <id>TPC4</id>
+        <título>TEste de PRI 2020</título>
+        <supervisor>
+            <nome>José Carlos Ramalho</nome>
+            <email>jcr@di.uminho.pt</email>
+            <website>http://www4.di.uminho.pt/~jcr/</website>
+        </supervisor>
+    </meta>
+    <equipe>
+        <elemento>
+            <id>A72187</id>
+            <nome>José Carlos Araujo LIma</nome>
+            <email>a72187@alunos.uminho.pt</email>
+        </elemento>
+    </equipe>
+    <resumo>
+        <para>Na primeira questão foi usado o mongo como base de dados usando os schemas das publicações o comando usado foi<para>
+        mongoimport --db test --collection jcrpubs --file ./downloads/jcrpubs.json --jsonArray
+
+        <para>No ex2 esta tudo na pasta de resolução do exercicio no git
+    </resumo>
+    <resultados>
+        <resultado path="https://github.com/ZeCarlos88/PRI2020/tree/master/testepri2020ex1">Exercicio1 do teste</resultado>
+        <resultado path="https://github.com/ZeCarlos88/PRI2020/tree/master/testepri2020ex2">Ezercicio2 do teste</resultado>
+    </resultados>
+</manifesto>

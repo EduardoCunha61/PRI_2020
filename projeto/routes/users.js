@@ -48,6 +48,12 @@ router.get('/:username', async (req, res) => {
 			if(username._id == req.session.userid){
 				var mp = true
 			}
+			publs.forEach(function (element) {
+				 element.isimg = element.file.match(".*\\.(jpg|png|tif)$")
+
+				})
+
+
 			res.render('profile', {authenticated: authenticated, user: username, myprofile: mp, pubs: publs})
 
 });

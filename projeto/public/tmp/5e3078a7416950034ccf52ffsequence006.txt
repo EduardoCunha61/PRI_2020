@@ -1,0 +1,128 @@
+LOCUS       SYNPUC9V                2665 bp    DNA     circular SYN 26-JUL-1993
+DEFINITION  pUC9 cloning vector.
+ACCESSION   L09128
+VERSION     L09128.1
+KEYWORDS    .
+SOURCE      synthetic construct
+  ORGANISM  synthetic construct
+            other sequences; artificial sequences.
+REFERENCE   1  (bases 1 to 2665)
+  AUTHORS   Gilbert,W.
+  TITLE     Obtained from VecBase 3.0
+  JOURNAL   Unpublished
+COMMENT     These data and their annotation were supplied to GenBank by Will
+            Gilbert under the auspices of the GenBank Currator Program. pUC9 -
+            Cloning vector
+            ENTRY PUC9                    #TYPE DNA CIRCULAR
+            TITLE pUC9 - Cloning vector
+            DATE      17-SEP-1986
+               #sequence  16-DEC-1986
+            ACCESSION VB0022
+            SOURCE    artificial
+            COLLECTION  ATCC 37252
+            REFERENCE
+               #number  1
+               #authors  Vieira J., Messing J.
+               #journal Gene (1982) 19: 259-268
+               #comment  see also 'note added in proof'
+            REFERENCE
+               #number 2
+               #authors Pouwels P.H., Enger-Valk B.E., Brammar W.J.
+               #book    Cloning Vectors, Elsvier 1985 and supplements
+               #comment  vector I-A-iv-20
+            COMMENT
+               Assembled from pUC19 and M13mp9 by F. Pfeiffer, MPI, Martinsried
+               Revised 16-DEC-1986 by F. Pfeiffer:
+               2287/8 'AT' to 'TA' to match revised sequence of PBR322
+               The strand shown contains the beta-galactosidase mRNA sequence
+               including the multiple cloning site of M13mp9.
+            KEYWORDS
+            CROSSREFERENCE
+               #complement
+                 VecBase(3):pUC9c
+               #parent
+                 VecBase(3):pUC7, VecBase(3):M13mp9, VecSource(3):bGal9
+               #brother
+                 VecBase(3):pUC8
+               #offspring
+                 VecBase(3):pUC13, VecBase(3):pEMBL9m, VecBase(3):pEMBL9p,
+                 VecBase(3):pUC931, VecBase(3):pOM1, VecBase(3):pOM3,
+            VecBase(3):pOM9
+                 VecBase(3):pUC91, VecBase(3):pUC92
+                 VecBase(3):pIC19H, VecBase(3):pIC19R
+                 VecBase(3):pICEM19Hm, VecBase(3):pICEM19Hp,
+                 VecBase(3):pICEM19Rm, VecBase(3):pICEM19Rp
+            PARENT
+               Features of pUC9 (2665 bp)
+                 residue     source
+                  1- 426  6372-6797      M13mp9
+                  1- 230  1069-1298      Lac-Operon
+                233- 268     1-  36      polylinker of M13mp9
+                269- 426  1304-1461      Lac-Operon
+                427- 526  2351-2252  (c) pBR322
+                527- 663  2210-2074  (c) pBR322
+                664-2665  4355-2354  (c) pBR322
+               Conflict (cfl) and Mutations (mut):
+                     pUC9  source
+               mut 1107 T  C 3912 (c) pBR322
+               mut 1408 A  G 3611 (c) pBR322
+            FEATURE
+               931-1719 1-789 Ap-R; b-lactamase
+            POLYLINKER  HindIII-PstI-SalI-BamHI-SmaI-EcoRI
+            SELECTION
+               #resistance  Ap
+               #indicator beta-galactosidase
+            SUMMARY  pUC9    #length 2665   #checksum 2385.
+FEATURES             Location/Qualifiers
+     source          1..2665
+                     /organism="synthetic construct"
+                     /mol_type="genomic DNA"
+                     /db_xref="taxon:32630"
+ORIGIN      
+        1 gcgcccaata cgcaaaccgc ctctccccgc gcgttggccg attcattaat gcagctggca
+       61 cgacaggttt cccgactgga aagcgggcag tgagcgcaac gcaattaatg tgagttagct
+      121 cactcattag gcaccccagg ctttacactt tatgcttccg gctcgtatgt tgtgtggaat
+      181 tgtgagcgga taacaatttc acacaggaaa cagctatgac catgattacg ccaagcttgg
+      241 ctgcaggtcg acggatcccc gggaattcac tggccgtcgt tttacaacgt cgtgactggg
+      301 aaaaccctgg cgttacccaa cttaatcgcc ttgcagcaca tccccctttc gccagctggc
+      361 gtaatagcga agaggcccgc accgatcgcc cttcccaaca gttgcgcagc ctgaatggcg
+      421 aatggcgcct gatgcggtat tttctcctta cgcatctgtg cggtatttca caccgcatat
+      481 ggtgcactct cagtacaatc tgctctgatg ccgcatagtt aagccagccc cgacacccgc
+      541 caacacccgc tgacgcgccc tgacgggctt gtctgctccc ggcatccgct tacagacaag
+      601 ctgtgaccgt ctccgggagc tgcatgtgtc agaggttttc accgtcatca ccgaaacgcg
+      661 cgagacgaaa gggcctcgtg atacgcctat ttttataggt taatgtcatg ataataatgg
+      721 tttcttagac gtcaggtggc acttttcggg gaaatgtgcg cggaacccct atttgtttat
+      781 ttttctaaat acattcaaat atgtatccgc tcatgagaca ataaccctga taaatgcttc
+      841 aataatattg aaaaaggaag agtatgagta ttcaacattt ccgtgtcgcc cttattccct
+      901 tttttgcggc attttgcctt cctgtttttg ctcacccaga aacgctggtg aaagtaaaag
+      961 atgctgaaga tcagttgggt gcacgagtgg gttacatcga actggatctc aacagcggta
+     1021 agatccttga gagttttcgc cccgaagaac gttttccaat gatgagcact tttaaagttc
+     1081 tgctatgtgg cgcggtatta tcccgtattg acgccgggca agagcaactc ggtcgccgca
+     1141 tacactattc tcagaatgac ttggttgagt actcaccagt cacagaaaag catcttacgg
+     1201 atggcatgac agtaagagaa ttatgcagtg ctgccataac catgagtgat aacactgcgg
+     1261 ccaacttact tctgacaacg atcggaggac cgaaggagct aaccgctttt ttgcacaaca
+     1321 tgggggatca tgtaactcgc cttgatcgtt gggaaccgga gctgaatgaa gccataccaa
+     1381 acgacgagcg tgacaccacg atgcctgtag caatggcaac aacgttgcgc aaactattaa
+     1441 ctggcgaact acttactcta gcttcccggc aacaattaat agactggatg gaggcggata
+     1501 aagttgcagg accacttctg cgctcggccc ttccggctgg ctggtttatt gctgataaat
+     1561 ctggagccgg tgagcgtggg tctcgcggta tcattgcagc actggggcca gatggtaagc
+     1621 cctcccgtat cgtagttatc tacacgacgg ggagtcaggc aactatggat gaacgaaata
+     1681 gacagatcgc tgagataggt gcctcactga ttaagcattg gtaactgtca gaccaagttt
+     1741 actcatatat actttagatt gatttaaaac ttcattttta atttaaaagg atctaggtga
+     1801 agatcctttt tgataatctc atgaccaaaa tcccttaacg tgagttttcg ttccactgag
+     1861 cgtcagaccc cgtagaaaag atcaaaggat cttcttgaga tccttttttt ctgcgcgtaa
+     1921 tctgctgctt gcaaacaaaa aaaccaccgc taccagcggt ggtttgtttg ccggatcaag
+     1981 agctaccaac tctttttccg aaggtaactg gcttcagcag agcgcagata ccaaatactg
+     2041 tccttctagt gtagccgtag ttaggccacc acttcaagaa ctctgtagca ccgcctacat
+     2101 acctcgctct gctaatcctg ttaccagtgg ctgctgccag tggcgataag tcgtgtctta
+     2161 ccgggttgga ctcaagacga tagttaccgg ataaggcgca gcggtcgggc tgaacggggg
+     2221 gttcgtgcac acagcccagc ttggagcgaa cgacctacac cgaactgaga tacctacagc
+     2281 gtgagctatg agaaagcgcc acgcttcccg aagggagaaa ggcggacagg tatccggtaa
+     2341 gcggcagggt cggaacagga gagcgcacga gggagcttcc agggggaaac gcctggtatc
+     2401 tttatagtcc tgtcgggttt cgccacctct gacttgagcg tcgatttttg tgatgctcgt
+     2461 caggggggcg gagcctatgg aaaaacgcca gcaacgcggc ctttttacgg ttcctggcct
+     2521 tttgctggcc ttttgctcac atgttctttc ctgcgttatc ccctgattct gtggataacc
+     2581 gtattaccgc ctttgagtga gctgataccg ctcgccgcag ccgaacgacc gagcgcagcg
+     2641 agtcagtgag cgaggaagcg gaaga
+//
+

@@ -61,13 +61,15 @@ router.post('/participar/:id', function(req, res){
 })
 
 router.post('/', function(req, res) {
+
+        var filepath=""
         if(req.files){
         req.files.sampleFile.mv('public/tmp/'+req.session.userid + req.files.sampleFile.name, function(err) {
             if (err)
                 return res.status(500).send(err);
         
             });
-            var filepath = 'public/tmp/'+req.session.userid + req.files.sampleFile.name
+            filepath = 'public/tmp/'+req.session.userid + req.files.sampleFile.name
         }
 
     

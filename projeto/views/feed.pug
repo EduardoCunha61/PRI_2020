@@ -1,0 +1,46 @@
+extends layout
+
+block content
+    section.blog-area.section.center
+        .container
+            .row
+                .col-md-4.col-xs-4.text-center
+                    .main-post
+                        each tag in feed
+                            if(tag.tipotag=="evento")
+                                .row
+                                    .centercolumn
+                                        .card
+                                            h2= tag.titulo
+                                            h5= tag.data
+                                            
+                                            p= tag.local
+                                            p=tag.description
+                            if(tag.tipotag=="pub")
+                                .container
+                                    .row
+                                    .col-lg-1.col-md-0
+                                    .col-lg-10.col-md-12
+                                        .main-post
+                                        .post-top-area
+                                            p.para= tag.description
+
+                            if(tag.tipotag=="evals")
+
+                                .container
+                                    .row
+                                    .col-lg-1.col-md-0
+                                    .col-lg-10.col-md-12
+                                        .main-post
+                                        .post-top-area
+                                            h5.pre-title 
+                                            b= tag.titulo
+                                            h3.title
+                                            //- a(href=)            
+                                            .post-info
+                                            .middle-area
+                                                a.name(href='#')
+                                                b= tag.uc
+                                                h6.date= tag.data
+                                            // post-info
+                                            p.para= tag.local

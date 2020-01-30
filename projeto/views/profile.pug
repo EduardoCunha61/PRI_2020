@@ -13,7 +13,7 @@ block content
         if(!user.img)
           img.rounded-circle.float-left(src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Square_Cash_app_logo.svg/1200px-Square_Cash_app_logo.svg.png" alt="Sheep" width="200" height="200")
         
-      .col-md-8
+      .col-md-6.col-xs-6
         if(myprofile)
           h2.center My Profile
             a.txt2.float-right(href='/users/' + user.username + "/editinfo") Edit profile
@@ -38,7 +38,7 @@ block content
             input(type="Submit")
         br
 
-      .col-md-8
+      .col-md-6.col-xs-6
         if(myprofile)
           .container
             form(method="POST" action="/pubs/profile" enctype='multipart/form-data')
@@ -54,7 +54,7 @@ block content
     .row
       .container
         .col-md-4.col-xs-4.text-left
-        .col-md-8
+        .col-md-6.col-xs-6
           br
           center.col-sm-12
             if(myprofile)
@@ -86,7 +86,7 @@ block content
                       .aligncenter
                         img(src=pub.isimg[0] alt="img" width="250" height="250")   
                     if(pub.isimg==null)
-                      a(href=pub.file download=pub.file) Download file
+                      a(href=pub.file download=pub.file) Download File
               br
               br
               hr
