@@ -157,7 +157,7 @@ router.get('/feed', async (req,res,next)=>{
 	
 	console.log(feed)
 	
-	res.render('feed',{feed:feed})
+	res.render('feed',{feed:feed,authenticated:req.session.token})
 		
 })
 
