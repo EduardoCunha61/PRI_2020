@@ -3,6 +3,12 @@ var router = express.Router();
 var axios = require('axios')
 var auth = require("../authentication/aut")
 
+const fileUpload = require('express-fileupload');
+
+var fs = require("fs");
+
+router.use(fileUpload());
+
 router.get('/', function(req, res) {
     axios.get('http://localhost:3000/api/pubs', { headers: { "Authorization": 'Bearer ' + req.session.token } })
         .then(pubs => res.render('events', {pubs: pubs.data, authenticated:req.session.token}))

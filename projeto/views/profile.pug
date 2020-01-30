@@ -1,44 +1,92 @@
 extends layout
 block content
 
-    .container.sm
-      .row
-        .col-md-4.col-xs-4.text-left
-          if(user.img)
-            img.img-fluid.img-thumbnail.rounded-circle.float-left(src='/'+user.img alt="Sheep" width="200" height="200")
-          if(!user.img)
-            img.img-fluid.img-thumbnail.rounded-circle.float-left(src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Square_Cash_app_logo.svg/1200px-Square_Cash_app_logo.svg.png" alt="Sheep" width="200" height="200")
+  link#bootstrap-css(href="/stylesheets/profile.css" rel="stylesheet")
+  
+  link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet")
 
-        .col-md-6.col-xs-6
-          p Username: 
-            =user.username
-          p Name: 
-            = user.name
-          p Email: 
-            a(href="mailto:"+user.email)= user.email
-
-      if(authenticated && myprofile)
-        .row
-          .col-md-4.col-xs-4.text-left  
-            form(method="POST" action="/users/"+user.username + "/uploadimage" enctype='multipart/form-data')
-              input#myFile(type="file" accept=".png,.jpg" name="file")
-              input(type="Submit")
-          .col-md-6.col-xs-6
-            a.txt3(href='/users/' + user.username + "/editinfo") Change information 
-          .col-md-6.col-xs-6
-            a.txt3(href='/evaluations') Evaluations
-      
-        .container.sm
-          form(method="POST" action="/pubs/profile")
-            .form-group
-              center.col-sm-12
-                label Insira a sua publicação
-                textarea.form-control(name='description', rows="5",style="width: 50%")
-              center.col-sm-12
-                button#form-submit.submit-btn(type='submit')
-                  b Post
-      if(authenticated)
-        .container
-        each pub in pubs
-          =pub.description
+  .container.emp-profile
+    .row
+      .col-md-4.col-xs-4.text-left
+        if(user.img)
+          img.rounded-circle.float-left(src='/'+user.img alt="Sheep" width="200" height="200")
+        if(!user.img)
+          img.rounded-circle.float-left(src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Square_Cash_app_logo.svg/1200px-Square_Cash_app_logo.svg.png" alt="Sheep" width="200" height="200")
+        
+      .col-md-8
+        if(myprofile)
+          h2.center My Profile
+            a.txt2.float-right(href='/users/' + user.username + "/editinfo") Edit profile
+        else
+          h2.center= user.username + '  ('
+            = user.role + ')'
+        br
+        //h4.span(style="font-weight:bold") 
+        p Username: 
+          =user.username
+        p Name: 
+          = user.name
+        p Email: 
+          a(href="mailto:"+user.email)= user.email
     
+    hr
+    .row
+      .col-md-4.col-xs-4.text-left
+        if(myprofile) 
+          form(method="POST" action="/users/"+user.username + "/uploadimage" enctype='multipart/form-data')
+            input#myFile(type="file" accept=".png,.jpg" label="ASd" name="file")
+            input(type="Submit")
+        br
+
+      .col-md-8
+        if(myprofile)
+          .container
+            form(method="POST" action="/pubs/profile" enctype='multipart/form-data')
+              .form-group
+                center
+                  h3 What's on your mind?
+                  br
+                  textarea.form-control(name='description' placeholder="Your post" rows="5")
+                center.col-sm-12
+                  input(type='file', name="sampleFile")
+                  input(type='submit' value='Post')
+        br
+    .row
+      .container
+        .col-md-4.col-xs-4.text-left
+        .col-md-8
+          br
+          center.col-sm-12
+            if(myprofile)
+              h2 Your posts
+            else
+              h2 What 
+                =user.username
+                |  has posted
+          br
+          br
+          each pub in pubs
+            .blocktext
+              hr
+              .row
+                .col-xs-1.col-xs-1.text-left
+                  if(user.img)
+                    img.rounded-circle.float-left(src='/'+user.img alt="img" width="40" height="40")
+
+                .col-xs-4.col-xs-4.text-left
+                  h4= pub.user
+                  h6= pub.data
+              br
+              .row
+                .container
+                  h5= pub.description
+                  br
+                  if(pub.file!="")
+                    if(pub.isimg!=null)
+                      .aligncenter
+                        img(src=pub.isimg[0] alt="img" width="250" height="250")   
+                    if(pub.isimg==null)
+                      a(href=pub.file download=pub.file) Download file
+              br
+              br
+              hr
