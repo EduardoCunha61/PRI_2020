@@ -9,6 +9,13 @@ router.get('/', auth.checkBasicAuthentication, function(req, res) {
         .catch(erro => res.status(500).send('Erro na listagem: ' + erro))
 });
 
+router.get('/:username', auth.checkBasicAuthentication, function(req, res) {
+    Pub.pubsbyUser(req.params.username)
+        .then(dados => res.jsonp(dados))
+        .catch(erro => res.status(500).send('Erro na listagem: ' + erro))
+});
+
+
 router.post('/', auth.checkBasicAuthentication, function(req, res) {
     var params = {
         data: req.body.data,

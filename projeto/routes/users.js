@@ -24,24 +24,32 @@ router.get('/', (req, res) => {
 
 });
 
-router.get('/:username', (req, res) => {	
-	axios.get('http://localhost:3000/api/users/' + req.params.username, { headers: { "Authorization": 'Bearer ' + req.session.token } })
-		.then(user => {
-			const authenticated = req.session.token;
-			var mp = false
-			if(user.data.username == req.session.username){
-				var mp = true
-				console.log(mp)
-			}
-			console.log(mp)
-			res.render('profile', {authenticated: authenticated, user: user.data, myprofile: mp})
-			
-		})
+router.get('/:username', async (req, res) => {
+	const authenticated = req.session.token;
+	var username
+	var publs
+	var mp = false
+
+	await axios.get('http://localhost:3000/api/users/' + req.params.username, { headers: { "Authorization": 'Bearer ' + req.session.token } })
+		.then(user => {username = user.data
+			console.log(user.data)})
 		.catch(erro => {
 			if (erro.response.status) return res.redirect('/login')
 			console.log('Erro na listagem dos utilizadores: ' + erro)
 			res.render('error', { error: erro, message: "Erro na listagem dos utilizadores!" })
 		})
+		await axios.get('http://localhost:3000/api/pubs/' + req.params.username, { headers: { "Authorization": 'Bearer ' + req.session.token } })
+			.then(pubs =>{publs=pubs.data})
+			.catch(erro => {
+				if (erro.response.status) return res.redirect('/login')
+				console.log('Erro na listagem dos utilizadores: ' + erro)
+				res.render('error', { error: erro, message: "Erro na listagem dos utilizadores!" })
+			})
+			if(username._id == req.session.userid){
+				var mp = true
+			}
+			res.render('profile', {authenticated: authenticated, user: username, myprofile: mp, pubs: publs})
+
 });
 
 router.get('/:username/editinfo', (req,res) =>{
@@ -59,16 +67,16 @@ router.get('/:username/editinfo', (req,res) =>{
 
 router.post('/:username/editinfo', (req, res) => {	
 	var params = {
-		id: req.session.username,
-		name: req.body.name,
+		id: req.session.userid,
 		username: req.body.username,
+		name: req.body.name,
 		email: req.body.email
 	}
 
 	axios.post('http://localhost:3000/api/users/' + req.params.username + '/editinfo', params, { headers: { "Authorization": 'Bearer ' + req.session.token } })
 		.then(user => {
 			console.log("Success!")
-			res.redirect('http://localhost:3000/users/' + req.body.username)
+			res.redirect('http://localhost:3000/users/' + user.data.username)
 		})
 		.catch(erro => {
 			if (erro.response.status) {console.log(erro.response.data) 

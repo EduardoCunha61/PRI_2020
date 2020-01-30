@@ -4,9 +4,9 @@ block content
     .container.sm
       .row
         .col-md-4.col-xs-4.text-left
-          if(!user.img)
-            img.img-fluid.img-thumbnail.rounded-circle.float-left(src='/'+user.img alt="Sheep" width="200" height="200")
           if(user.img)
+            img.img-fluid.img-thumbnail.rounded-circle.float-left(src='/'+user.img alt="Sheep" width="200" height="200")
+          if(!user.img)
             img.img-fluid.img-thumbnail.rounded-circle.float-left(src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Square_Cash_app_logo.svg/1200px-Square_Cash_app_logo.svg.png" alt="Sheep" width="200" height="200")
 
         .col-md-6.col-xs-6
@@ -28,9 +28,8 @@ block content
           .col-md-6.col-xs-6
             a.txt3(href='/evaluations') Evaluations
       
-      if(authenticated && myprofile)
         .container.sm
-          form(method="POST" action="/pubs")
+          form(method="POST" action="/pubs/profile")
             .form-group
               center.col-sm-12
                 label Insira a sua publicação
@@ -38,6 +37,8 @@ block content
               center.col-sm-12
                 button#form-submit.submit-btn(type='submit')
                   b Post
-      
-    .container.sm
-      
+      if(authenticated)
+        .container
+        each pub in pubs
+          =pub.description
+    

@@ -44,17 +44,16 @@ module.exports.updatelastsession = (current_username,tstmp) => {
 		.update({username: current_username}, {$set: {ultimoacesso: tstmp}}, {returnOriginal: false})
 }
 
-module.exports.editinfo = (current_username,name,username,email) => {
+module.exports.editinfo = (id,name,username,email) => {
 	return User
-		.update({username: current_username}, {$set: {name: name, username: username, email: email}}, {returnOriginal: false})
+		.findByIdAndUpdate({_id:id}, {name: name, username: username, email: email}, {new: true})
+		.exec()
 }
 
 module.exports.editinformation = (user,filepath) =>{
 	return User
 		.findOne({ username: user })
-		.update({img:filepath
-
-		})
+		.update({img:filepath})
 }
 
 // module.exports.edit = users =>{
