@@ -41,7 +41,8 @@ block content
                                   td(style='text-align: left;')= evento.local
                                   td(style='text-align: left;')= evento.data
                                   td(style='text-align: left;')= evento.hinicio + ' - ' + evento.hfim
-                                  td(style='text-align: left;')= evento.tipo
+                                  td(style='text-align: left;')
+                                    a(href="/events/tipo/"+evento.tipo)= evento.tipo
                                   td(style='text-align: left;')= evento.description
                                   td
                                     form(method="GET" action="/events/" + evento._id)
