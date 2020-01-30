@@ -7,6 +7,9 @@ var evaluationSchema = new mongoose.Schema({
     local: {type: String, required: true},
     file: {type: Buffer, contentType: String}, //Ficheiros com tamanho inferior a 16MB
     users: Array
+},{
+    timestamps:true
+
 });
 
 module.exports = mongoose.model('evaluations', evaluationSchema)

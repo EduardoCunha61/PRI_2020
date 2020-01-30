@@ -91,7 +91,7 @@ router.post('/login', (req, res, next) => {
                 var myuser = { id : user._id, email : user.email};
                 // Geração do token                
                 var token = jwt.sign({ user : myuser },'secretpri', { expiresIn: '30m' });        
-                return res.jsonp({username: user.username, token: token})                
+                return res.jsonp({id:user._id,username: user.username, token: token})                
             });     
         } 
         catch (err) {

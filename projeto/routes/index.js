@@ -27,6 +27,8 @@ router.post('/login', function (req, res) {
 		.then(response => {						
 			req.session.token = response.data.token;
 			req.session.username = response.data.username;
+			console.log(response.data)
+			req.session.userid = response.data.id;
 			req.session.save(err => {
 				if (err) console.log("POST /login Erro no login do utilizador! " + JSON.stringify(err.response.data.info));
 				console.log(req.session.redirectTo)
@@ -97,5 +99,67 @@ router.post('/logout', function (req, res, next) {
 			res.redirect(301, '/logout');
 		})
 });
+
+router.get('/feed', async (req,res,next)=>{
+	var eventos =[]
+	var publs
+	var evals
+
+	var feed
+
+	await axios.get('http://localhost:3000/api/evento/',{ headers: { "Authorization": 'Bearer ' + req.session.token } })
+			.then(events => eventos = events.data)
+			.catch(erro => {
+				if (erro.response.status) {console.log(erro.response.data) 
+					return res.redirect('/login')}
+				console.log('Erro na listagem dos utilizadores: ' + erro)
+				res.render('error', { error: erro, message: "Erro na listagem dos utilizadores!" })
+			})
+
+	
+	await axios.get('http://localhost:3000/api/pubs/',{ headers: { "Authorization": 'Bearer ' + req.session.token } })
+			.then(pubs =>publs = pubs.data)
+			.catch(erro => {
+				if (erro.response.status) {console.log(erro.response.data) 
+					return res.redirect('/login')}
+				console.log('Erro na listagem dos utilizadores: ' + erro)
+				res.render('error', { error: erro, message: "Erro na listagem dos utilizadores!" })
+			})
+
+			
+	await axios.get('http://localhost:3000/api/evaluations/',{ headers: { "Authorization": 'Bearer ' + req.session.token } })
+			.then(evaluation => evals = evaluation.data)
+			.catch(erro => {
+				if (erro.response.status) {console.log(erro.response.data) 
+					return res.redirect('/login')}
+				console.log('Erro na listagem dos utilizadores: ' + erro)
+				res.render('error', { error: erro, message: "Erro na listagem dos utilizadores!" })
+			})
+
+//adicionar as tags 
+	eventos.forEach(function (element) {
+		element.tipotag = "evento";
+		});
+	publs.forEach(function (element) {
+		element.tipotag = "pub";
+		});
+	evals.forEach(function (element) {
+		element.tipotag = "eval";
+		});
+
+//ordenar o feed
+	var feed =[...eventos,...publs,...evals]
+	console.log(feed)
+	feed.sort(function(a, b) {
+		if(a.updatedAt > b.updatedAt) return -1
+		if(a.updatedAt < b.updatedAt) return 1
+		return 0;
+	});
+	
+	console.log(feed)
+	
+	res.render('feed',{feed:feed})
+		
+})
 
 module.exports = router;

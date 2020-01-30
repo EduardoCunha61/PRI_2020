@@ -3,15 +3,18 @@ var router = express.Router();
 var axios = require('axios')
 var auth = require("../authentication/aut")
 var multer = require('multer')
+const fileUpload = require('express-fileupload');
+
 var fs = require("fs");
 
+router.use(fileUpload());
 
-var upload = multer({dest:'./public/tmp'})
 
 router.get('/', function(req, res) {
     req.session.redirectTo = "/events";	
     axios.get('http://localhost:3000/api/evento', { headers: { "Authorization": 'Bearer ' + req.session.token } })
-        .then(eventos => res.render('events', {eventos: eventos.data,authenticated:req.session.token}))
+        .then(eventos =>{
+             res.render('events', {eventos: eventos.data,authenticated:req.session.token})})
         .catch(erro => {
             if (erro.response.status) return res.redirect('/login')
             console.log('Erro na listagem de eventos: ' + erro)
@@ -27,7 +30,8 @@ router.get('/criarEvento',function(req, res) {
 
 router.get('/:id', function(req, res) {
     axios.get('http://localhost:3000/api/evento/' + req.params.id, { headers: { "Authorization": 'Bearer ' + req.session.token } })
-        .then(evento => res.render('evento', {evento: evento.data,authenticated:req.session.token}))
+        .then(evento =>{console.log(JSON.stringify(evento.data.updatedAt))
+             res.render('evento', {evento: evento.data,authenticated:req.session.token})})
         .catch(erro => {
             if (erro.response.status) return res.redirect('/login')
             console.log('Erro na consulta do evento: ' + erro)
@@ -57,31 +61,33 @@ router.post('/participar/:id', function(req, res){
         })
 })
 
-router.post('/',upload.single('file'), function(req, res) {
-    var file = 'public/tmp/' + req.file.filename
-    var filepath = 'tmp/' + req.file.filename
+router.post('/', function(req, res) {
+        if(req.files){
+        req.files.sampleFile.mv('public/tmp/'+req.session.userid + req.files.sampleFile.name, function(err) {
+            if (err)
+                return res.status(500).send(err);
+        
+            });
+            var filepath = 'public/tmp/'+req.session.userid + req.files.sampleFile.name
+        }
+
+    
+
     var params = {
 		data: req.body.data, hinicio: req.body.hinicio, hfim: req.body.hfim,
         tipo: req.body.tipo, titulo: req.body.titulo, local: req.body.local,
         description: req.body.description,file:filepath}
         console.log(params)
        
-
-	fs.rename(req.file.path, file, function(err) {
-		if (err) {
-		  console.log(err);
-		  res.send(500);
-		} else {
             axios.post('http://localhost:3000/api/evento', params, { headers: { "Authorization": 'Bearer ' + req.session.token } })
                 .then(()=> res.redirect('http://localhost:3000/events'))
                 .catch(erro => {
-                    if (erro.response.status) return res.redirect('/login')
+                    if (erro.response.status){ 
+                        console.log(erro.response.data)
+                        return res.redirect('/login')}
                     console.log('Erro na inserção do evento: ' + erro)
                     res.render('error', {error: erro, message: "Meu erro ins..."})
                 })
-            
-            }
-    })
 });
 
 module.exports = router;
