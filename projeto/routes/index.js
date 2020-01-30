@@ -27,7 +27,6 @@ router.post('/login', function (req, res) {
 		.then(response => {						
 			req.session.token = response.data.token;
 			req.session.username = response.data.username;
-			console.log(response.data)
 			req.session.userid = response.data.id;
 			req.session.save(err => {
 				if (err) console.log("POST /login Erro no login do utilizador! " + JSON.stringify(err.response.data.info));
@@ -57,10 +56,10 @@ router.post('/signup', function (req, res) {
 
 	axios.post('http://localhost:3000/api/users/', params)
 		.then(response => {
-			res.redirect('/')
+			res.redirect('/login')
 		})
 		.catch(erro => {
-			console.log("POST /singup Erro no registo do utilizador! " + JSON.stringify(erro.response.data.info));
+			console.log("POST /signup Erro no registo do utilizador! " + JSON.stringify(erro.response.data.info));
 			req.flash('error', erro.response.data.info)
 			res.redirect(301, '/signup');
 		})

@@ -25,6 +25,14 @@ module.exports.listarDataExact = data => {
         .exec()
 }
 
+// Lista as avaliacoes do tipo T
+module.exports.pubsbyUser = username => {
+    return Pub
+        .find({user: username})
+        .sort({data: -1})
+        .exec()
+}
+
 // Devolve a informacao do Pub com id
 module.exports.consultar = eid => {
     return Pub

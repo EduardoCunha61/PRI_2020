@@ -13,8 +13,7 @@ router.use(fileUpload());
 router.get('/', function(req, res) {
     req.session.redirectTo = "/events";	
     axios.get('http://localhost:3000/api/evento', { headers: { "Authorization": 'Bearer ' + req.session.token } })
-        .then(eventos =>{
-             res.render('events', {eventos: eventos.data,authenticated:req.session.token})})
+        .then(eventos => { res.render('events', {eventos: eventos.data,authenticated:req.session.token})})
         .catch(erro => {
             if (erro.response.status) return res.redirect('/login')
             console.log('Erro na listagem de eventos: ' + erro)
