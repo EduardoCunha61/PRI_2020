@@ -1,8 +1,11 @@
 extends layout
 block content
 
+
     link(rel='stylesheet', href='/stylesheets/main-styles.css')    
     link(href='/stylesheets/responsive.css', rel='stylesheet')
+    link#bootstrap-css(href="/stylesheets/profile.css" rel="stylesheet")
+
     style.
         table {
         border-spacing: 0;
@@ -13,42 +16,39 @@ block content
         cursor: pointer;
         }
     
-    section.blog-area.section
+    .limiter
         .container.emp-profile
-            center.h2.w3-teal Eventos inseridos
-            a.user-link(href="/events/criarEvento") Criar evento
+            center
+                h3 Registered events
             br
             .row
                 .col-lg-12
                     table.table.table-striped#users
                         thead
                             tr
-                                th(onclick='sortTable(0)' width="12%") Titulo
-                                th(onclick='sortTable(0)' width="12%") ID
-                                th(onclick='sortTable(0)' width="12%") Local
-                                th(onclick='sortTable(1)' width="12%") Data
-                                th(onclick='sortTable(2)' width="15%") Horario
-                                th(onclick='sortTable(3)' width="12%") Tipo
-                                th(onclick='sortTable(4)' width="30%") Designação
-                                th
-                                
-                        
-                        each evento in eventos
-                                
-                                tr
-                                
-                                  td(style='text-align: left;')= evento.titulo
-                                  td(style='text-align: left;')= evento._id
-                                  td(style='text-align: left;')= evento.local
-                                  td(style='text-align: left;')= evento.data
-                                  td(style='text-align: left;')= evento.hinicio + ' - ' + evento.hfim
-                                  td(style='text-align: left;')
-                                    a(href="/events/tipo/"+evento.tipo)= evento.tipo
-                                  td(style='text-align: left;')= evento.description
-                                  td
+                                th(onclick='sortTable(0)' width="18%") Tipo
+                                th(onclick='sortTable(1)' width="18%") Titulo
+                                th(onclick='sortTable(2)' width="18%") Local
+                                th(onclick='sortTable(3)' width="18%") Data
+                                th(onclick='sortTable(4)' width="18%") Horario
+                                th(width="10%") 
+                        each evento in eventos    
+                            tr
+                                td(style='text-align: left;')
+                                    a.h7(href="/events/tipo/"+evento.tipo)= evento.tipo
+                                td(style='text-align: left;')
+                                    h7= evento.titulo
+                                td(style='text-align: left;')
+                                    h7= evento.local
+                                td(style='text-align: left;')
+                                    h7= evento.data
+                                td(style='text-align: left;')
+                                    h7= evento.hinicio + 'h - ' + evento.hfim + 'h'
+                                td
                                     form(method="GET" action="/events/" + evento._id)
                                         input(type='submit' value="VISITAR")
-                                        
+            center
+                a.btn.btn-secondary(href="/events/criarEvento") Create new event                                
 
     script.
         function sortTable(n) {

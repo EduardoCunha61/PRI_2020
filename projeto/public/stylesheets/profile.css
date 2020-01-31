@@ -1,5 +1,5 @@
 body{
-    background: -webkit-linear-gradient(left, #975314, #f7963c);
+    background: -webkit-linear-gradient(left, #83470f, #fc9e45);
 }
 .emp-profile{
     padding: 3%;
@@ -99,6 +99,20 @@ body{
     margin-right: auto;
     width: 100%
 }
+
+.blockt {
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%
+}
+
+.container-fluid {
+    width: 50%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
 
 .left{
     float:left;

@@ -42,11 +42,21 @@ html
             span.sr-only (current)
           if(authenticated)
             a.nav-item.nav-link(href="/users/" + user.username) My Profile
+            li.nav-item.dropdown
+              a.nav-link.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+                | Informations
+              .dropdown-menu(aria-labelledby="navbarDropdown")
+                a.dropdown-item(href="/events") Events
+                a.dropdown-item(href="/evaluations") Evaluations
+                .dropdown-divider
+                a.dropdown-item(href="/users") Users 
+        
             form(id="log" action="/logout" method="POST")
               a.nav-item.nav-link(onclick="document.getElementById('log').submit()") Logout
               
           if(!authenticated)
             a.nav-item.nav-link(href="/signup") Register
+            a.nav-item.nav-link(href="/login") Log in
           // a.nav-item.nav-link.disabled(href="#") Disabled
 
 

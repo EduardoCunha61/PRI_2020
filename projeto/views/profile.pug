@@ -13,10 +13,10 @@ block content
         if(!user.img)
           img.rounded-circle.float-left(src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Square_Cash_app_logo.svg/1200px-Square_Cash_app_logo.svg.png" alt="Sheep" width="200" height="200")
         
-      .col-md-6.col-xs-6
+      .col-md-8.col-xs-8
         if(myprofile)
           h2.center My Profile
-            a.txt2.float-right(href='/users/' + user.username + "/editinfo") Edit profile
+            a.btn.btn-secondary.float-right(href='/users/' + user.username + "/editinfo") Edit profile 
         else
           h2.center= user.username + '  ('
             = user.role + ')'
@@ -29,16 +29,17 @@ block content
         p Email: 
           a(href="mailto:"+user.email)= user.email
     
-    hr
     .row
       .col-md-4.col-xs-4.text-left
         if(myprofile) 
           form(method="POST" action="/users/"+user.username + "/uploadimage" enctype='multipart/form-data')
-            input#myFile(type="file" accept=".png,.jpg" label="ASd" name="file")
-            input(type="Submit")
-        br
+            input#myFile(type="file" accept=".png,.jpg" label="uploadimg" name="file")
+            input.btn.btn-secondary(type="Submit")
+      .col-md-8.col-xs-8  
 
-      .col-md-6.col-xs-6
+    hr
+    .row
+      .container(style="width:70%")
         if(myprofile)
           .container
             form(method="POST" action="/pubs/profile" enctype='multipart/form-data')
@@ -46,23 +47,18 @@ block content
                 center
                   h3 What's on your mind?
                   br
-                  textarea.form-control(name='description' placeholder="Your post" rows="5")
+                  textarea.form-control(name='description' placeholder="Your post" rows="5" style="width:102%")
                 center.col-sm-12
                   input(type='file', name="sampleFile")
-                  input(type='submit' value='Post')
+                  input.btn.btn-secondary(type='submit' value='Post your thought')
         br
-    .row
-      .container
-        .col-md-4.col-xs-4.text-left
-        .col-md-6.col-xs-6
-          br
-          center.col-sm-12
-            if(myprofile)
-              h2 Your posts
-            else
-              h2 What 
-                =user.username
-                |  has posted
+        center.col-sm-12
+          if(myprofile)
+            h2 Your posts
+          else
+            h2 What 
+              =user.username
+              |  has posted
           br
           br
           each pub in pubs
@@ -71,14 +67,14 @@ block content
               .row
                 .col-xs-1.col-xs-1.text-left
                   if(user.img)
-                    img.rounded-circle.float-left(src='/'+user.img alt="img" width="40" height="40")
+                    img.rounded-circle.float-left(src='/'+user.img alt="img" width="45" height="45")
 
                 .col-xs-4.col-xs-4.text-left
                   h4= pub.user
                   h6= pub.data
               br
               .row
-                .container
+                .col-xs-12.col-xs-12.text-left
                   h5= pub.description
                   br
                   if(pub.file!="")

@@ -16,8 +16,8 @@ router.get('/', auth.checkBasicAuthentication, function(req, res) {
 
 router.post('/newevaluation', auth.checkBasicAuthentication, function(req, res) {
     var params = {
-		tipo: req.body.tipo, uc: req.body.uc, data: req.body.data,
-        local: req.body.local}
+		tipo: req.body.tipo, uc: req.body.uc, data: req.body.data, hinicio: req.body.hinicio, hfim: req.body.hfim,
+        local: req.body.local, file:req.body.file}
     Evaluation.inserir(params)
         .then(dados => res.jsonp(dados))
         .catch(erro => res.status(500).send('Erro na listagem: ' + erro))

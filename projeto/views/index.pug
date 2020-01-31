@@ -12,5 +12,6 @@ block content
       title Login 
   
   if(authenticated)
-    p Welcome #{username}!
-    a(href="/events/criarEvento") Criar Evento
+    .container.emp-profile
+      p Welcome #{username}!
+      a(href="/events/criarEvento") Criar Evento

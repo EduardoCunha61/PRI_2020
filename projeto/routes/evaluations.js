@@ -27,8 +27,8 @@ router.get('/newevaluation',function(req, res) {
 
 router.post('/newevaluation', function(req, res) {
     var params = {
-		tipo: req.body.tipo, uc: req.body.uc, data: req.body.data,
-        local: req.body.local}
+		tipo: req.body.tipo, uc: req.body.uc, data: req.body.data, hinicio: req.body.hinicio, hfim: req.body.hfim,
+        local: req.body.local, file: req.body.file}
 
     axios.post('http://localhost:3000/api/evaluations/newevaluation', params, { headers: { "Authorization": 'Bearer ' + req.session.token } })
         .then(()=> res.redirect('http://localhost:3000/evaluations'))

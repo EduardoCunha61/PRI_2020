@@ -1,46 +1,91 @@
 extends layout
 
 block content
-    section.blog-area.section.center
-        .container
-            .row
-                .col-md-4.col-xs-4.text-center
-                    .main-post
-                        each tag in feed
-                            if(tag.tipotag=="evento")
+    .container.emp-profile
+        center
+            form(method="POST" action="/pubs/profile" enctype='multipart/form-data')
+              .form-group
+                center
+                  h3 What's on your mind?
+                  br
+                  textarea.form-control(name='description' placeholder="Your post" rows="5" style="width:50%")
+                center.col-sm-12
+                  input(type='file', name="sampleFile")
+                  input.btn.btn-secondary(type='submit' value='Post your thought')
+            br
+            br
+            br 
+            h2 News feed
+            .container(style="width:75%").ridge
+                hr
+                hr
+                each tag in feed
+                    br
+                    .blocktext
+                        .row
+                            .col-xs-1.text-left
+                                if(user.img)
+                                    img.rounded-circle.float-left(src='/'+user.img alt="img" width="50" height="50")
+                            .col-xs-4.col-xs-4.text-left
+                                a.h4(href='/users/' + tag.user)= tag.user
+                                h6= tag.data
+                        br
+                        if(tag.tipotag=="evento")
+                            h2 New event: 
+                                = tag.titulo
+                            h5= tag.data
+                            h6 From 
+                                =tag.hinicio
+                                | h to 
+                                = tag.hfim
+                                | h
+                            br
+                            h4  
+                                a.h4(href='/events/tipo/' + tag.tipo)= tag.tipo
+                                |  Event
+                            h5 In 
+                                = tag.local    
+                            h5
+                                = tag.description
+                            br
+                            br
+                        if(tag.tipotag=="pub")
+                            .blocktext
                                 .row
-                                    .centercolumn
-                                        .card
-                                            h2= tag.titulo
-                                            h5= tag.data
-                                            
-                                            p= tag.local
-                                            p=tag.description
-                            if(tag.tipotag=="pub")
-                                .container
-                                    .row
-                                    .col-lg-1.col-md-0
-                                    .col-lg-10.col-md-12
-                                        .main-post
-                                        .post-top-area
-                                            p.para= tag.description
-
-                            if(tag.tipotag=="evals")
-
-                                .container
-                                    .row
-                                    .col-lg-1.col-md-0
-                                    .col-lg-10.col-md-12
-                                        .main-post
-                                        .post-top-area
-                                            h5.pre-title 
-                                            b= tag.titulo
-                                            h3.title
-                                            //- a(href=)            
-                                            .post-info
-                                            .middle-area
-                                                a.name(href='#')
-                                                b= tag.uc
-                                                h6.date= tag.data
-                                            // post-info
-                                            p.para= tag.local
+                                    .col-xs-12.col-xs-12.text-left
+                                        h5= tag.description
+                                        br
+                                        
+                            if(tag.file!="")
+                                if(tag.isimg!=null)
+                                    .aligncenter
+                                        img(src=tag.isimg[0] alt="img" width="250" height="250")   
+                                if(tag.isimg==null)
+                                    .aligncenter
+                                        a(href=tag.file download=tag.file) Download 
+                                            = tag.user 
+                                            | 's File
+                            
+                        if(tag.tipotag=="evals")
+                            h2 New Evaluation: 
+                                = tag.tipo
+                            h5= tag.data
+                            br
+                            h4 Type of Event: 
+                                a.h5(href='/events/tipo/' + tag.tipo)= tag.tipo
+                            h5 In 
+                                = tag.local    
+                            
+                            if(tag.file!="")
+                                if(tag.isimg!=null)
+                                    .aligncenter
+                                        img(src=tag.isimg[0] alt="img" width="250" height="250")   
+                                if(tag.isimg==null)
+                                    .aligncenter
+                                        a(href=tag.file download=tag.file) Download 
+                                            = tag.user 
+                                            | 's File
+                    
+                    hr
+                    hr
+            
