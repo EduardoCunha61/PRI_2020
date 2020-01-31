@@ -44,7 +44,7 @@ router.post('/', auth.checkBasicAuthentication, function(req, res) {
     var params = {
 		data: req.body.data, hinicio: req.body.hinicio, hfim: req.body.hfim,
         tipo: req.body.tipo, titulo: req.body.titulo, local: req.body.local,
-        description: req.body.description,file:req.body.file}
+        description: req.body.description,file:req.body.file, user:req.body.user}
     Evento.inserir(params)
         .then(dados => res.jsonp(dados))
         .catch(erro => res.status(500).send('Erro na listagem: ' + erro))
@@ -52,6 +52,13 @@ router.post('/', auth.checkBasicAuthentication, function(req, res) {
 
 router.post('/participar', auth.checkBasicAuthentication, function(req, res) {
     Evento.participar(req.body.id, req.body.username)
+        .then(dados => res.jsonp(dados))
+        .catch(erro => res.status(500).send('Erro na listagem: ' + erro))
+});
+router.post('/import', auth.checkBasicAuthentication, function(req, res) {
+    var params = req.body
+    console.log(params)
+    Evento.save(params)
         .then(dados => res.jsonp(dados))
         .catch(erro => res.status(500).send('Erro na listagem: ' + erro))
 });

@@ -38,7 +38,7 @@ router.get('/:username', async (req, res) => {
 			console.log('Erro na listagem dos utilizadores: ' + erro)
 			res.render('error', { error: erro, message: "Erro na listagem dos utilizadores!" })
 		})
-		await axios.get('http://localhost:3000/api/pubs/' + req.params.username, { headers: { "Authorization": 'Bearer ' + req.session.token } })
+		await axios.get('http://localhost:3000/api/pubs/' + username._id, { headers: { "Authorization": 'Bearer ' + req.session.token } })
 			.then(pubs =>{publs=pubs.data})
 			.catch(erro => {
 				if (erro.response.status) return res.redirect('/login')
@@ -49,7 +49,9 @@ router.get('/:username', async (req, res) => {
 				var mp = true
 			}
 			publs.forEach(function (element) {
+				element.usern = username.username
 				 element.isimg = element.file.match(".*\\.(jpg|png|tif)$")
+				 element.likeds = element.likes.length
 
 				})
 
@@ -71,18 +73,15 @@ router.get('/:username/editinfo', (req,res) =>{
 	})
 });
 
-router.post('/:username/editinfo', (req, res) => {	
+router.post('/like/:id',async (req,res)=>{
 	var params = {
-		id: req.session.userid,
-		username: req.body.username,
-		name: req.body.name,
-		email: req.body.email
+		idpub : req.params.id,
+		iduser : req.session.userid
 	}
-
-	axios.post('http://localhost:3000/api/users/' + req.params.username + '/editinfo', params, { headers: { "Authorization": 'Bearer ' + req.session.token } })
-		.then(user => {
-			console.log("Success!")
-			res.redirect('http://localhost:3000/users/' + user.data.username)
+	var like
+	await axios.post('http://localhost:3000/api/users/likexist', params, { headers: { "Authorization": 'Bearer ' + req.session.token } })
+		.then(user => {like=user.data
+			console.log(like)
 		})
 		.catch(erro => {
 			if (erro.response.status) {console.log(erro.response.data) 
@@ -90,6 +89,85 @@ router.post('/:username/editinfo', (req, res) => {
 			console.log('Erro na listagem dos utilizadores: ' + erro)
 			res.render('error', { error: erro, message: "Erro na listagem dos utilizadores!" })
 		})
+		console.log(like.likes.indexOf(req.session.userid))
+	if(like.likes.indexOf(req.session.userid)!=-1){
+		await axios.post('http://localhost:3000/api/users/likeremove', params, { headers: { "Authorization": 'Bearer ' + req.session.token } })
+			.then(user => {like=user.data
+				res.redirect('http://localhost:3000/')
+			})
+			.catch(erro => {
+				if (erro.response.status) {console.log(erro.response.data) 
+					return res.redirect('/login')}
+				console.log('Erro na listagem dos utilizadores: ' + erro)
+				res.render('error', { error: erro, message: "Erro na listagem dos utilizadores!" })
+			})
+}else{
+		await axios.post('http://localhost:3000/api/users/likeadd', params, { headers: { "Authorization": 'Bearer ' + req.session.token } })
+			.then(user => {like=user.data
+				res.redirect('http://localhost:3000')
+			})
+			.catch(erro => {
+				if (erro.response.status) {console.log(erro.response.data) 
+					return res.redirect('/login')}
+				console.log('Erro na listagem dos utilizadores: ' + erro)
+				res.render('error', { error: erro, message: "Erro na listagem dos utilizadores!" })
+			})
+}
+
+})
+
+router.post('/:username/editinfo', (req, res) => {	
+	var params = {
+		id: req.session.userid,
+		username: req.body.username,
+		name: req.body.name,
+		email: req.body.email
+	}
+	var usern
+
+	axios.get('http://localhost:3000/api/users/getuser/' + req.body.username, { headers: { "Authorization": 'Bearer ' + req.session.token } })
+		.then(user => {usern= user.data
+				console.log(usern)
+				if(usern)
+				{
+					console.log("AHAHAHAHAHAHA")
+					res.redirect('http://localhost:3000/users/'+req.params.username+'/editinfo')
+				}else{
+					axios.get('http://localhost:3000/api/users/getemail/' + req.body.email, { headers: { "Authorization": 'Bearer ' + req.session.token } })
+						.then(user =>{useremail= user.data
+						if(useremail){
+							
+							console.log("AHAHAHAHAHAHA")
+							res.redirect('http://localhost:3000/users/'+req.params.username+'/editinfo')
+						}else{
+							axios.post('http://localhost:3000/api/users/' + req.body.username+'/editinfo',params, { headers: { "Authorization": 'Bearer ' + req.session.token } })
+								.then(user => {
+									const authenticated = req.session.token || false;
+									res.redirect('http://localhost:3000/login')
+								})
+								.catch(erro => {
+									if (erro.response.status) {console.log(erro.response.data) 
+										return res.redirect('/login')}
+									console.log('Erro na listagem dos utilizadores: ' + erro)
+									res.render('error', { error: erro, message: "Erro na listagem dos utilizadores!" })
+								})
+						}
+						})
+						.catch(erro => {
+						if (erro.response.status) {console.log(erro.response.data) 
+							return res.redirect('/login')}
+						console.log('Erro na listagem dos utilizadores: ' + erro)
+						res.render('error', { error: erro, message: "Erro na listagem dos utilizadores!" })
+					})
+				}
+		})
+		.catch(erro => {
+			if (erro.response.status) {console.log(erro.response.data) 
+				return res.redirect('/login')}
+			console.log('Erro na listagem dos utilizadores: ' + erro)
+			res.render('error', { error: erro, message: "Erro na listagem dos utilizadores!" })
+		})
+
 });
 
 //Ver isto

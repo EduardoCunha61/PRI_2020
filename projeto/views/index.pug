@@ -12,5 +12,31 @@ block content
       title Login 
   
   if(authenticated)
-    p Welcome #{username}!
-    a(href="/events/criarEvento") Criar Evento
+    .container.emp-profile
+      a(href="/events/export/exportevents") Export Events
+      br
+      a(href="/pubs/exportpubs") Export Publications
+      br
+      a(href='/evaluations/exportevals') Export Evaluations 
+
+      br
+      if(pathpubs)
+        a(href=pathpubs download=pathpubs) Download file
+
+      br
+      br
+      form(method="POST" action="/pubs/importpubs" enctype='multipart/form-data' )
+          input(type='file', name="sampleFile")
+          input.btn.btn-secondary(type='submit' value='Import Publications')
+      br
+      br
+      form(method="POST" action="/events/importevents" enctype='multipart/form-data' )
+          input(type='file', name="sampleFile")
+          input.btn.btn-secondary(type='submit' value='Import Events')
+      br
+      br
+      form(method="POST" action="/evaluations/importevals" enctype='multipart/form-data' )
+          input(type='file', name="sampleFile")
+          input.btn.btn-secondary(type='submit' value='Import Evaluations')
+      br
+      br

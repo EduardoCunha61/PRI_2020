@@ -27,16 +27,82 @@ router.get('/criarEvento',function(req, res) {
 });
 
 
-router.get('/:id', function(req, res) {
-    axios.get('http://localhost:3000/api/evento/' + req.params.id, { headers: { "Authorization": 'Bearer ' + req.session.token } })
-        .then(evento =>{console.log(JSON.stringify(evento.data.updatedAt))
-             res.render('evento', {evento: evento.data,authenticated:req.session.token})})
+
+
+router.get('/export/exportevents',(req,res)=>{
+    var publs
+    axios.get('http://localhost:3000/api/evento', { headers: { "Authorization": 'Bearer ' + req.session.token } })
+        .then(pubs => {events=pubs.data
+        
+            let data = JSON.stringify(events)
+            var path = '/tmp/events.json'
+            fs.writeFileSync('public/'+path, data)
+
+            res.render('index', {pubs: pubs.data,pathpubs:path, authenticated:req.session.token})})
         .catch(erro => {
             if (erro.response.status) return res.redirect('/login')
+            console.log('Erro na listagem de eventos: ' + erro)
+            res.render('error', {error: erro, message: "na listagem..."})
+        })
+
+
+
+    
+})
+
+
+router.get('/:id', function(req, res) {
+    var isimg
+    axios.get('http://localhost:3000/api/evento/' + req.params.id, { headers: { "Authorization": 'Bearer ' + req.session.token } })
+        .then(evento =>{
+            if( evento.data.file){
+                isimg = evento.data.file.match(".*\\.(jpg|png|tif)$")
+                res.render('evento', {evento: evento.data,authenticated:req.session.token,isimg:isimg})
+            }else{
+            res.render('evento', {evento: evento.data,authenticated:req.session.token,isimg:null})}
+        })
+        .catch(erro => {
+            if (erro.response.status) {
+                console.log(erro.response.data)
+                return res.redirect('/login')}
             console.log('Erro na consulta do evento: ' + erro)
             res.render('error', {error: erro, message: "Meu erro..."})
         })
 });
+router.post('/importevents',(req,res)=>{
+    var filepath=""
+    var pubs
+    if(req.files){
+    req.files.sampleFile.mv('public/tmp/'+req.files.sampleFile.name, function(err) {
+        if (err)
+            return res.status(500).send(err);
+    
+        });
+        filepath ='tmp/'+req.session.userid + req.files.sampleFile.name
+    }
+    fs.readFile('public/tmp/'+req.files.sampleFile.name, (err, data) => {
+        if (err) throw err;
+        let pubs = JSON.parse(data);
+        var params = pubs
+        axios.post('http://localhost:3000/api/evento/import',params, { headers: { "Authorization": 'Bearer ' + req.session.token } })
+            .then(pubs => {
+
+                res.redirect('http://localhost:3000/')})
+            .catch(erro => {
+                if (erro.response.status){console.log(erro.response.data) 
+                    return res.redirect('/login')}
+                console.log('Erro na listagem de eventos: ' + erro)
+                res.render('error', {error: erro, message: "na listagem..."})
+            })
+
+
+    });
+    
+
+
+})
+
+
 
 router.get('/tipo/:tipo', function(req, res) {
     axios.get('http://localhost:3000/api/evento/tipo/' + req.params.tipo, { headers: { "Authorization": 'Bearer ' + req.session.token } })
@@ -69,7 +135,7 @@ router.post('/', function(req, res) {
                 return res.status(500).send(err);
         
             });
-            filepath = 'public/tmp/'+req.session.userid + req.files.sampleFile.name
+            filepath = '/tmp/'+req.session.userid + req.files.sampleFile.name
         }
 
     
@@ -77,7 +143,7 @@ router.post('/', function(req, res) {
     var params = {
 		data: req.body.data, hinicio: req.body.hinicio, hfim: req.body.hfim,
         tipo: req.body.tipo, titulo: req.body.titulo, local: req.body.local,
-        description: req.body.description,file:filepath}
+        description: req.body.description,file:filepath,user:req.session.userid}
         console.log(params)
        
             axios.post('http://localhost:3000/api/evento', params, { headers: { "Authorization": 'Bearer ' + req.session.token } })
@@ -90,5 +156,7 @@ router.post('/', function(req, res) {
                     res.render('error', {error: erro, message: "Meu erro ins..."})
                 })
 });
+
+
 
 module.exports = router;

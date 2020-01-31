@@ -20,7 +20,7 @@ module.exports.getUserByUsername = (username) => {
 
 module.exports.getUserById = (id) => {
 	return User
-		.findById(id)
+		.findOne({_id:id})
 		.exec()
 }
 

@@ -1,0 +1,44 @@
+extends layout
+block content
+    link#bootstrap-css(href="/stylesheets/profile.css" rel="stylesheet")
+
+    .limiter
+        .container.emp-profile
+            .container(style="width:75%")
+                center
+                    h2= eval.tipo 
+                        |  de  
+                        = eval.uc 
+                br
+                h3 
+                    b Type of Evaluation: 
+                    a.h4(href="/evaluations/tipo/"+eval.tipo)=eval.tipo              
+                br
+                h3
+                    b Local: 
+                    a.h4=eval.local
+                br
+                h3
+                    b Date: 
+                    a.h4=eval.data
+                br
+                h3
+                    b Between: 
+                        a.h4=eval.hinicio
+                            | h and 
+                        a.h4=eval.hfim
+                            |h     
+                br
+                
+                h3 
+                    b Who's participating? 
+                for user in eval.users
+                    p
+                        a.h4(href="/users/"+user)=user
+                    if(usera === user && eval.file)
+                        .aligncenter
+                            a(href=eval.file download=eval.file) Download File
+
+                form(method="POST" action="/evaluations/participar/" + eval._id)
+                    input.btn.btn-secondary(type='submit' value="Participate")             
+

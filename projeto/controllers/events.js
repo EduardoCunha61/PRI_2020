@@ -50,3 +50,7 @@ module.exports.participar = (id,user) => {
         { $addToSet: {users: user}})
          
 }
+
+module.exports.save = pub => {
+    return Evento.create(pub)
+}

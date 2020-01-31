@@ -3,6 +3,7 @@ const passport = require('passport')
 const jwt = require('jsonwebtoken')
 var router = express.Router()
 var User = require('../../controllers/users')
+var Pub = require('../../controllers/pubs')
 var BlackList = require('../../controllers/blacklist')
 var auth = require("../../authentication/aut")
 const {validationResult} = require('express-validator')
@@ -22,46 +23,49 @@ router.get('/:username', auth.checkBasicAuthentication, (req, res) => {
         .then(data => res.jsonp(data))
         .catch(err => res.status(500).send('Erro na consulta de utilizador: ' + err))
 })
+router.get('/getuser/:username', auth.checkBasicAuthentication, (req, res) => {
+    User.getUserByUsername(req.params.username)
+        .then(data => res.jsonp(data))
+        .catch(err => res.status(500).send('Erro na consulta de utilizador: ' + err))
+})
+
+router.get('/getemail/:email', auth.checkBasicAuthentication, (req, res) => {
+    User.getUser(req.params.email)
+        .then(data => res.jsonp(data))
+        .catch(err => res.status(500).send('Erro na consulta de utilizador: ' + err))
+})
 
 
-router.get('/id/:id', auth.checkAdminAuthentication, (req, res) => {
+router.get('/id/:id', auth.checkBasicAuthentication, (req, res) => {
     User.getUserById(req.params.id)
         .then(data => res.jsonp(data))
         .catch(errors => res.status(500).send('Erro na listagem: ' + errors))
 });
 
 router.post('/:username/editinfo', auth.checkBasicAuthentication, (req,res) =>{
-    var self = this;
-    // console.log(req.body.email) Check
-    
-    // console.log(req.body.username) Check
-	User.getUser(req.body.email, (err, results) => {
-        console.log(err)
-        console.log("asdasd")
-        console.log(results)
-		if (err) next(err);
-		else if (results) {
-            console.log("AHAHAHAHAHAHA")
-			self.invalidate("email", "E-mail já registado");
-			return next(new Error("E-mail já registado"));
-		}
-	});
-	User.getUserByUsername(req.body.username, (err, results) => {
-        console.log(err)
-        console.log("asdasd")
-        console.log(results)
-        if (err) next(err);
-		else if (results) {
-            console.log("FODA SE")
-			self.invalidate("email", "Username já existe");
-			return next(new Error("Username já existe"));
-		}
-    });
-    
     User.editinfo(req.body.id,req.body.name,req.body.username,req.body.email)
         .then(data => res.jsonp(data))
         .catch(errors => res.status(500).send('Erro na alteracao de informacao: ' + errors))    
 })
+
+router.post('/likexist',auth.checkBasicAuthentication,(req,res)=>{
+    Pub.consultarlike(req.body.idpub,req.body.iduser)
+    .then(data => res.jsonp(data))
+    .catch(errors => res.status(500).send('Erro na listagem: ' + errors))
+})
+
+router.post('/likeremove',auth.checkBasicAuthentication,(req,res)=>{
+    Pub.removelike(req.body.idpub,req.body.iduser)
+    .then(data => res.jsonp(data))
+    .catch(errors => res.status(500).send('Erro na listagem: ' + errors))
+})
+
+router.post('/likeadd',auth.checkBasicAuthentication,(req,res)=>{
+    Pub.addlike(req.body.idpub,req.body.iduser)
+    .then(data => res.jsonp(data))
+    .catch(errors => res.status(500).send('Erro na listagem: ' + errors))
+})
+
 
 //Ver isto
 router.post('/:username/uploadimage', auth.checkBasicAuthentication, (req, res) => {

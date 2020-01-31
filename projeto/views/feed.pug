@@ -1,46 +1,100 @@
 extends layout
 
 block content
-    section.blog-area.section.center
-        .container
-            .row
-                .col-md-4.col-xs-4.text-center
-                    .main-post
-                        each tag in feed
-                            if(tag.tipotag=="evento")
+    .container.emp-profile
+        center
+            form(method="POST" action="/pubs/profile" enctype='multipart/form-data')
+              .form-group
+                center
+                  h3 What's on your mind?
+                  br
+                  textarea.form-control(name='description' placeholder="Your post" rows="5" style="width:50%")
+                center.col-sm-12
+                  input(type='file', name="sampleFile")
+                  input.btn.btn-secondary(type='submit' value='Post your thought')
+            br
+            br
+            br
+            br 
+            br
+            h2 News feed
+            br
+            .container(style="width:75%").ridge
+                hr
+                hr
+                each tag in feed
+                    br
+                    .blocktext
+                        .row
+                            .col-xs-1.text-left
+                                if(tag.imguser)
+                                    img.rounded-circle.float-left(src='/'+tag.imguser alt="img" width="50" height="50")
+                            .col-xs-4.col-xs-4.text-left
+                                a.h4(href='/users/' + tag.usernamecr)= tag.usernamecr
+                                h6= tag.datatag
+                        br
+                        if(tag.tipotag=="evento")
+                            a.h2(href='/events/'+tag._id) New event: 
+                                = tag.titulo
+                            h5= tag.data
+
+                            if(tag.file!="")
+                                if(tag.isimg!=null)
+                                    .aligncenter
+                                        img(src=tag.isimg[0] alt="img" style="width:50%;height:50%")
+
+                            h6 From 
+                                =tag.hinicio
+                                | h to 
+                                = tag.hfim
+                                | h
+                            br
+                            h4  
+                                a.h4(href='/events/tipo/' + tag.tipo)= tag.tipo
+                                |  Event
+                            h5 In 
+                                = tag.local    
+                            h5
+                                = tag.description
+                            br
+                            br
+                        if(tag.tipotag=="pub")
+                            .blocktext
                                 .row
-                                    .centercolumn
-                                        .card
-                                            h2= tag.titulo
-                                            h5= tag.data
-                                            
-                                            p= tag.local
-                                            p=tag.description
-                            if(tag.tipotag=="pub")
-                                .container
-                                    .row
-                                    .col-lg-1.col-md-0
-                                    .col-lg-10.col-md-12
-                                        .main-post
-                                        .post-top-area
-                                            p.para= tag.description
-
-                            if(tag.tipotag=="evals")
-
-                                .container
-                                    .row
-                                    .col-lg-1.col-md-0
-                                    .col-lg-10.col-md-12
-                                        .main-post
-                                        .post-top-area
-                                            h5.pre-title 
-                                            b= tag.titulo
-                                            h3.title
-                                            //- a(href=)            
-                                            .post-info
-                                            .middle-area
-                                                a.name(href='#')
-                                                b= tag.uc
-                                                h6.date= tag.data
-                                            // post-info
-                                            p.para= tag.local
+                                    .col-xs-12.col-xs-12.text-left
+                                        h5= tag.description
+                                        br
+                                        
+                            if(tag.file!="")
+                                if(tag.isimg!=null)
+                                    .aligncenter
+                                        img(src=tag.isimg[0] alt="img" width="500" height="500")   
+                                if(tag.isimg==null)
+                                    .aligncenter
+                                        a(href=tag.file download=tag.file) Download 
+                                            = tag.user 
+                                            | 's File
+                            br
+                            form(method="POST" action="/users/like/"+tag._id)
+                                input.btn.btn-secondary(type="submit" value="Like this  "+tag.likeds)
+                            
+                        if(tag.tipotag=="eval")
+                            a.h2(href='/evaluations/'+tag._id) New Evaluation: 
+                                = tag.tipo
+                            h5= tag.data
+                            h6 From 
+                                =tag.hinicio
+                                | h to 
+                                = tag.hfim
+                                | h
+                            br
+                            br
+                            h4 Type of Evaluation: 
+                                a.h5(href='/evaluations/tipo/' + tag.tipo)= tag.tipo
+                            h5 In 
+                                = tag.local    
+                            
+                    
+                    hr
+                    hr
+            

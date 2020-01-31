@@ -8,7 +8,7 @@ router.get('/', function (req, res) {
 	const authenticated = req.session.token || false;
 	const username = req.session.username || false;
 	if (req.session) {
-		res.render('index',{authenticated: authenticated, username: username});
+		res.redirect('/feed');
     } else {
         res.render('signup')
     }
@@ -17,6 +17,9 @@ router.get('/', function (req, res) {
 
 router.get('/login', function (req, res) {	
 	res.render('login', { expressFlash: req.flash('error'), sessionFlash: res.locals.sessionFlash });	
+});
+router.get('/index', function (req, res) {	
+	res.render('index', {authenticated:req.session.token});	
 });
 
 router.post('/login', function (req, res) {
@@ -33,7 +36,7 @@ router.post('/login', function (req, res) {
 				console.log(req.session.redirectTo)
 				var redirectTo = req.session.redirectTo || '/';
 				delete req.session.redirectTo;			
-				res.redirect(redirectTo);
+				res.redirect('/');
 			})
 				    
 		})
@@ -103,7 +106,7 @@ router.get('/feed', async (req,res,next)=>{
 	var eventos =[]
 	var publs
 	var evals
-
+	var users
 	var feed
 
 	await axios.get('http://localhost:3000/api/evento/',{ headers: { "Authorization": 'Bearer ' + req.session.token } })
@@ -135,30 +138,59 @@ router.get('/feed', async (req,res,next)=>{
 				res.render('error', { error: erro, message: "Erro na listagem dos utilizadores!" })
 			})
 
+	await axios.get('http://localhost:3000/api/users/',{ headers: { "Authorization": 'Bearer ' + req.session.token } })
+			.then(user => users = user.data)
+			.catch(erro => {
+				if (erro.response.status) {console.log(erro.response.data) 
+					return res.redirect('/login')}
+				console.log('Erro na listagem dos utilizadores: ' + erro)
+				res.render('error', { error: erro, message: "Erro na listagem dos utilizadores!" })
+			})
 //adicionar as tags 
-	eventos.forEach(function (element) {
-		element.tipotag = "evento";
+	eventos.forEach( function (element) {
+		element.tipotag = "evento"
+		element.isimg = element.file.match(".*\\.(jpg|png|tif)$")
 		});
-	publs.forEach(function (element) {
-		element.tipotag = "pub";
+	publs.forEach( function (element) {
+		element.tipotag = "pub"
+		element.isimg = element.file.match(".*\\.(jpg|png|tif)$")
+		element.likeds = element.likes.length
 		});
+
 	evals.forEach(function (element) {
 		element.tipotag = "eval";
+		
 		});
 
 //ordenar o feed
 	var feed =[...eventos,...publs,...evals]
-	console.log(feed)
 	feed.sort(function(a, b) {
 		if(a.updatedAt > b.updatedAt) return -1
 		if(a.updatedAt < b.updatedAt) return 1
 		return 0;
 	});
+	feed.forEach(function (element) {
+		element.datatag = element.updatedAt.split('.')[0].replace('T',',');
+		});
 	
-	console.log(feed)
-	
-	res.render('feed',{feed:feed,authenticated:req.session.token})
+	feed.forEach(async function (element) {
+		var username1=element.user;
+		var username2
+		var img
+		users.forEach(function(element2){
+			if(element2._id==username1){
+				username2=element2.username
+				img=element2.img
+			}
+		})
 		
+		element.usernamecr = username2;
+		element.imguser = img;
+	})
+
+	console.log(feed)
+await res.render('feed',{feed:feed,authenticated:req.session.token})
+
 })
 
 module.exports = router;

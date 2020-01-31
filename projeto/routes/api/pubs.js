@@ -28,4 +28,13 @@ router.post('/', auth.checkBasicAuthentication, function(req, res) {
         .catch(erro => res.status(500).send('Erro na listagem: ' + erro))
 });
 
+router.post('/import', auth.checkBasicAuthentication, function(req, res) {
+    var params = req.body
+    console.log(params)
+    Pub.save(params)
+        .then(dados => res.jsonp(dados))
+        .catch(erro => res.status(500).send('Erro na listagem: ' + erro))
+});
+
+
 module.exports = router;

@@ -4,7 +4,8 @@ var pubSchema = new mongoose.Schema({
     data: {type: String, required: true}, //Tipo String ou Date, qual usar?
     description: String,
     file:String, //Ficheiros com tamanho inferior a 16MB
-    user: String
+    user: String,
+    likes:[]
 },{
     timestamps:true
 });

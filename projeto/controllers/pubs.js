@@ -40,6 +40,27 @@ module.exports.consultar = eid => {
         .exec()
 }
 
+module.exports.consultarlike = (pubid,userid) => {
+    return Pub
+        .findOne({_id: pubid})
+        .exec()
+}
+
+module.exports.removelike = (pubid,userid) => {
+    return Pub
+        .update({_id: pubid}, {$pull: {likes:userid}})
+        .exec()
+}
+
+module.exports.addlike = (pubid,userid) => {
+    return Pub
+        .update({_id: pubid}, {$push: {likes: userid}})
+        .exec()
+}
+
 module.exports.inserir = pub => {
+    return Pub.create(pub)
+}
+module.exports.save = pub => {
     return Pub.create(pub)
 }

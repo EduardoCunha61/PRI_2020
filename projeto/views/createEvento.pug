@@ -1,56 +1,41 @@
 extends layout
 block content
-  link(href='/stylesheets/sp2-styles.css', rel='stylesheet')
-  link(href='/stylesheets/news-main.css', rel='stylesheet', media='all')
-  link(href='/stylesheets/sp2-responsive.css', rel='stylesheet')
-  .slider.display-table.center-text
-    //- h1.title.color-white.display-table-cell-2
-    //-   b Criar notícia
-  // slider
-  section.blog-area.section
-    .container
-      .row
-        .col-lg-1.col-md-0
-        .col-lg-10.col-md-12
-          .main-post
-            center.h3.title 
-              b Criar Evento
-            .post-top-area
-              form(method="POST" action="/events" enctype='multipart/form-data')
-                .form-row
-                  .name Titulo*
-                  .value
-                    input.input--style-6(type='text', name='titulo', required='')
-                .form-row
-                  .name Data*
-                  .value
-                    input.input--style-6(type='text', name='data', required='')
-                .form-row
-                  .name Local*
-                  .value
-                    input.input--style-6(type='text', name='local', required='')                          
-                .form-row                
-                  .name Hora de inicio*
-                  .value
-                    input.input--style-6(type='text', name='hinicio', required='')
-                .form-row                
-                  .name Hora de fim*
-                  .value
-                    input.input--style-6(type='text', name='hfim', required='')
-                .form-row       
-                  .name Tipo
-                  .value
-                    input.input--style-6(type='text', name='tipo')
-                .form-row
-                  .name Description
-                  .value
-                    .input-group
-                      textarea.textarea--style-6(name='description', placeholder='Breve descrição do evento...')
-                .center.col-sm-12
-                    input(type='file', name='sampleFile')
-                    input(type='submit')
-                    b CRIAR EVENTO
-              br 
-              hr
-              br
-            center.h4.title
+
+  link(rel='stylesheet', href='/stylesheets/main-styles.css')    
+  link(href='/stylesheets/responsive.css', rel='stylesheet')
+  link#bootstrap-css(href="/stylesheets/profile.css" rel="stylesheet")
+
+  .limiter
+    .container.emp-profile
+      center.h3.title 
+        b Create new event
+
+      .container(style="width:75%")
+        form(method="POST" action="/events" enctype='multipart/form-data')
+          .form-group
+            h5 Title
+            input.form-control(name="titulo" placeholder="Title of your event")
+          .form-group
+            h5 Date
+            input.form-control(name="data" placeholder="When is it happening?")
+          .form-group
+            h5 Place
+            input.form-control(name="local" placeholder="Where is it happening?")
+          .form-group
+            h5 Starts at
+            input.form-control(name="hinicio" placeholder="What time does it start?")
+          .form-group
+            h5 Ends at
+            input.form-control(name="hfim" placeholder="What time should it end?")
+          .form-group
+            h5 Type
+            input.form-control(name="tipo" placeholder="What is the type of your event?")
+          .form-group
+            h5 Description
+            textarea.form-control(name="description" rows="3" placeholder="Brief description of this event")
+          .form-group  
+            h5 File
+            input(type='file', name='sampleFile')
+          center.col-sm-12
+            br
+            input.btn.btn-secondary(type='submit' value='Create new event')

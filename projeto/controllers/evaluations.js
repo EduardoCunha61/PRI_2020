@@ -41,6 +41,8 @@ module.exports.consultar = eid => {
 module.exports.inserir = evaluation => {
     return Evaluation.create(evaluation)
 }
+module.exports.save = evaluation => {
+    return Evaluation.create(evaluation)}
 
 module.exports.participar = (id,user) => {
     return Evaluation

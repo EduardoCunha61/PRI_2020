@@ -1,6 +1,11 @@
 extends layout
 block content
 
+
+    link(rel='stylesheet', href='/stylesheets/main-styles.css')    
+    link(href='/stylesheets/responsive.css', rel='stylesheet')
+    link#bootstrap-css(href="/stylesheets/profile.css" rel="stylesheet")
+
     style.
         table {
         border-spacing: 0;
@@ -10,29 +15,41 @@ block content
         th {
         cursor: pointer;
         }
-
-    section.blog-area.section
-        .container.bootstrap.snippet
-            center.h2.w3-teal Avaliações registadas
-            a.user-link(href="/evaluations/newevaluation") Criar Avaliação
+    
+    .limiter
+        .container.emp-profile
+            center
+                h3 Registered evaluations
             br
             .row
                 .col-lg-12
-                    table.table.table-striped#evaluations
+                    table.table.table-striped#users
                         thead
                             tr
-                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(0)' width="20%") Tipo
-                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(1)' width="20%") UC
-                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(2)' width="20%") Data
-                                th(style="text-align: center; vertical-align: middle;", onclick='sortTable(3)' width="15%") Local
-
-                        each evaluation in evaluations
-                            tbody
-                                tr
-                                    td(style='text-align: center;')= evaluation.tipo
-                                    td(style='text-align: center;')= evaluation.uc
-                                    td(style='text-align: center;')= evaluation.data
-                                    td(style='text-align: center;')= evaluation.local
+                                th(onclick='sortTable(0)' width="18%") Tipo
+                                th(onclick='sortTable(1)' width="18%") UC
+                                th(onclick='sortTable(2)' width="18%") Data
+                                th(onclick='sortTable(3)' width="18%") Local
+                                th(onclick='sortTable(4)' width="18%") Horario
+                                th(width="10%") 
+                        
+                        each eval in evaluations    
+                            tr
+                                td(style='text-align: left;')
+                                    a.h7(href="/evaluations/tipo/"+eval.tipo)=  eval.tipo
+                                td(style='text-align: left;')
+                                    h7= eval.uc
+                                td(style='text-align: left;')
+                                    h7= eval.data
+                                td(style='text-align: left;')
+                                    h7= eval.local
+                                td(style='text-align: left;')
+                                    h7= eval.hinicio + 'h - ' + eval.hfim + 'h'
+                                td
+                                    form(method="GET" action="/evaluations/" + eval._id)
+                                        input.btn.btn-secondary(type='submit' value="More info")
+            center
+                a.btn.btn-secondary(href="/evaluations/newevaluation") Create new evaluation                                
 
     script.
         function sortTable(n) {
